@@ -409,38 +409,8 @@ def internal_error(error):
 
 
 if __name__ == '__main__':
-    import os
-    import socket
-    import sys
-    import threading
-    import webbrowser
-
-    host = '0.0.0.0'
-    port = 5000
-    if '--port' in sys.argv:
-        port = int(sys.argv[sys.argv.index('--port') + 1])
-
-    # Порт 5000 может быть занят (например, зависшим процессом) —
-    # автоматически подбираем ближайший свободный порт.
-    chosen = port
-    is_reloader_child = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
-    if not is_reloader_child:
-        for candidate in range(port, port + 20):
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            try:
-                sock.bind((host, candidate))
-                sock.close()
-                chosen = candidate
-                break
-            except OSError:
-                sock.close()
-        url = f'http://{host}:{chosen}/'
-        print('=' * 60)
-        print('  Элла')
-        print(f'  Откройте в браузере: {url}')
-        print('  Остановка: Ctrl+C')
-        print('=' * 60)
-        if '--no-browser' not in sys.argv:
-            threading.Timer(1.5, lambda: webbrowser.open(url)).start()
-
-    app.run(debug=True, host=host, port=chosen)
+    # Для работы в качестве службы Windows (через SSM/NSSM):
+    # 1. Отключаем debug=True, чтобы не создавались лишние процессы.
+    # 2. Жестко фиксируем порт 5001 (так как 5000 занят первым проектом).
+    # 3. Убираем автооткрытие браузера и автоподбор портов.
+    app.run(host='0.0.0.0', port=5001, debug=False)
