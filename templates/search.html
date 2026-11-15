@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск — Литературный сборник{% endblock %}
+
+{% block description %}Результаты поиска по литературному сборнику{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+        <h1 class="font-merriweather text-4xl font-bold mb-4 text-gray-900">Поиск по сборнику</h1>
+        {% if query %}
+        <p class="text-lg text-gray-600">Результаты по запросу: <span class="font-semibold text-gray-900">{{ query }}</span></p>
+        <p class="text-sm text-gray-500 mt-1">Найдено: {{ total }}</p>
+        {% else %}
+        <p class="text-gray-600">Введите запрос — поиск идёт по названиям, авторам и текстам произведений.</p>
+        {% endif %}
+    </div>
+
+    {% if query and total == 0 %}
+    <div class="text-center bg-white rounded-lg p-10">
+        <p class="text-gray-600">По запросу ничего не найдено.</p>
+        <p class="text-sm text-gray-400 mt-2">Попробуйте изменить запрос или проверьте написание.</p>
+        <a href="/" class="btn btn-secondary px-6 mt-6">Вернуться на главную</a>
+    </div>
+    {% endif %}
+
+    {% if poems %}
+    <div class="mb-10">
+        <h2 class="font-merriweather text-2xl font-bold text-gray-900 mb-4">Поэзия ({{ poems|length }})</h2>
+        <div class="space-y-4">
+            {% for poem in poems %}
+            <article class="card">
+                <h3 class="font-semibold text-gray-900">{{ poem.title }}</h3>
+                <p class="text-sm text-gray-500">{{ poem.author }}</p>
+                <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(poem, 180) }}</p>
+                <a href="/poem/{{ poem.id }}/" class="text-red-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if pieces %}
+    <div class="mb-10">
+        <h2 class="font-merriweather text-2xl font-bold text-gray-900 mb-4">Проза ({{ pieces|length }})</h2>
+        <div class="space-y-4">
+            {% for piece in pieces %}
+            <article class="card">
+                <h3 class="font-semibold text-gray-900">{{ piece.title }}</h3>
+                <p class="text-sm text-gray-500">{{ piece.author }}</p>
+                <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(piece, 180) }}</p>
+                <a href="/piece/{{ piece.id }}/" class="text-red-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

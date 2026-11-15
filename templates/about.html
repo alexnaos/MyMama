@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}О сборнике — Литературный сборник{% endblock %}
+
+{% block description %}Информация о литературном сборнике Эллы Гогелиани{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="text-center mb-10">
+        <h1 class="font-merriweather text-4xl font-bold mb-4 text-gray-900">О сборнике</h1>
+    </div>
+    <div class="bg-white rounded-lg p-8 md:p-10 shadow-sm literary-text">
+        <p>
+            «Литературный сборник» — онлайн-архив поэзии и прозы <strong>Эллы Гогелиани</strong>,
+            собранный из рукописей разных лет.
+        </p>
+        <p>
+            В настоящее время в архиве <strong>{{ poems_count }}</strong> стихотворений
+            и <strong>{{ pieces_count }}</strong> прозаических произведений. Контент загружается
+            напрямую из markdown-файлов, поэтому новые тексты появляются на сайте сразу после добавления.
+        </p>
+        <p>
+            Произведения сгруппированы по тематическим разделам; воспользуйтесь поиском, чтобы найти
+            текст по названию, автору или содержанию.
+        </p>
+        <p>
+            <a href="/poetry/" class="text-red-700 font-medium">Поэзия →</a><br>
+            <a href="/prose/" class="text-red-700 font-medium">Проза →</a><br>
+            <a href="/contact/" class="text-red-700 font-medium">Контакты →</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Проза — Литературный сборник{% endblock %}
+
+{% block description %}Прозаические произведения Эллы Гогелиани{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto text-center mb-10">
+    <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-4 text-gray-900">Проза</h1>
+    <p class="text-lg text-gray-600">
+        Прозаические произведения разных жанров и лет: рассказы, эссе, размышления.
+    </p>
+    <p class="text-sm text-gray-500 mt-2">Всего произведений: {{ total }}</p>
+</div>
+
+{% for folder_label, works in groups %}
+<div class="mb-10">
+    <h2 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ folder_label }}</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for piece in works %}
+        <article class="card hover:shadow-lg transition-shadow flex flex-col">
+            <div class="flex items-start gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                    <span class="text-red-700 font-medium text-sm">{{ piece.id }}</span>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-gray-900 mb-1">{{ piece.title }}</h3>
+                    <p class="text-sm text-gray-500">{{ piece.author }}</p>
+                    {% if piece.date %}<p class="text-xs text-gray-400 mt-1">{{ piece.date }}</p>{% endif %}
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 line-clamp-3 flex-1">{{ work_excerpt(piece) }}</p>
+            <a href="/piece/{{ piece.id }}/" class="text-red-700 text-sm font-medium mt-3 block">Читать полностью →</a>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

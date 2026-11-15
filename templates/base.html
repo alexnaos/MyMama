@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}Литературный сборник: поэзия и проза Эллы Гогелиани{% endblock %}">
+    <title>{% block title %}Литературный сборник{% endblock %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #2d3748; -webkit-font-smoothing: antialiased; }
+        .font-merriweather { font-family: 'Merriweather', serif; }
+        a { color: #2d3748; text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #c53030; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+        .card { background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); transition: all 0.2s; }
+        .card:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; cursor: pointer; }
+        .btn-primary { background: #c53030; color: white; }
+        .btn-primary:hover { background: #e53e3e; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.1); color: white; }
+        .btn-secondary { background: transparent; color: #2d3748; border: 2px solid #2d3748; }
+        .btn-secondary:hover { background: #2d3748; color: white; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        h1 { font-size: 2.25rem; line-height: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        h2 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .text-muted { color: #718096 !important; }
+        .content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 1rem; }
+        /* Типографика художественных текстов */
+        .literary-text { font-size: 1.0625rem; line-height: 1.9; color: #2d3748; }
+        .literary-text p { margin: 0 0 1rem; }
+        .literary-text h1, .literary-text h2, .literary-text h3 { margin-top: 1.5rem; }
+        .literary-text blockquote { border-left: 3px solid #c53030; padding-left: 1rem; color: #4a5568; margin: 1rem 0; }
+        .literary-text img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        @media (min-width: 640px) { .container { padding: 0 1.5rem; } }
+        @media (min-width: 768px) {
+            h1 { font-size: 3rem; line-height: 3.75rem; }
+            h2 { font-size: 2.25rem; line-height: 2.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-50" style="background: white !important;">
+    <div class="container max-w-7xl flex items-center justify-between h-16 gap-4">
+        <a href="/" class="flex items-center gap-2 flex-shrink-0">
+            <svg class="h-8 w-8 text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span class="font-merriweather text-xl font-bold text-gray-900">Литературный сборник</span>
+        </a>
+        <ul class="hidden lg:flex items-center gap-6">
+            <li><a href="/" class="{{ 'text-red-700 font-medium' if active == '' else 'text-gray-600 hover:text-red-700' }} transition-colors">Главная</a></li>
+            <li><a href="/poetry/" class="{{ 'text-red-700 font-medium' if active == 'poetry' else 'text-gray-600 hover:text-red-700' }} transition-colors">Поэзия</a></li>
+            <li><a href="/prose/" class="{{ 'text-red-700 font-medium' if active == 'prose' else 'text-gray-600 hover:text-red-700' }} transition-colors">Проза</a></li>
+            <li><a href="/gallery/" class="{{ 'text-red-700 font-medium' if active == 'gallery' else 'text-gray-600 hover:text-red-700' }} transition-colors">Галерея</a></li>
+            <li><a href="/about/" class="{{ 'text-red-700 font-medium' if active == 'about' else 'text-gray-600 hover:text-red-700' }} transition-colors">О сборнике</a></li>
+            <li><a href="/contact/" class="{{ 'text-red-700 font-medium' if active == 'contact' else 'text-gray-600 hover:text-red-700' }} transition-colors">Контакты</a></li>
+        </ul>
+        <form action="/search/" method="get" class="relative flex-shrink w-full max-w-xs">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="search" name="q" value="{{ request.args.get('q', '') }}"
+                   placeholder="Поиск по сборнику..." aria-label="Поиск по сборнику"
+                   class="pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 w-full">
+        </form>
+    </div>
+</nav>
+
+<main class="flex-1 w-full">
+    <div class="content-wrapper py-8 md:py-12">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<footer class="bg-gray-900 text-gray-300 py-8 mt-auto">
+    <div class="container flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+            <span class="font-merriweather text-xl font-bold text-white">Литературный сборник</span>
+            <p class="text-sm text-gray-400">Поэзия и проза Эллы Гогелиани · 2026</p>
+        </div>
+        <div class="flex items-center gap-6 text-sm text-gray-400">
+            <a href="/poetry/" class="hover:text-white transition-colors">Поэзия</a>
+            <a href="/prose/" class="hover:text-white transition-colors">Проза</a>
+            <a href="/about/" class="hover:text-white transition-colors">О сборнике</a>
+            <a href="/contact/" class="hover:text-white transition-colors">Контакты</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

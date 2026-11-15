@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Литературный сборник — поэзия и проза Эллы Гогелиани{% endblock %}
+
+{% block description %}Коллекция прозы, поэзии и статей Эллы Гогелиани{% endblock %}
+
+{% block content %}
+<section class="pt-16 pb-16 md:pt-24 md:pb-20">
+    <div class="max-w-3xl mx-auto text-center">
+        <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-6 text-gray-900">Литературный сборник</h1>
+        <p class="text-lg text-gray-600 font-merriweather max-w-2xl mx-auto mb-8">
+            Коллекция прозы, поэзии и статей Эллы Гогелиани. Глубокие мысли, эмоции и размышления,
+            переданные через силу слова.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/poetry/" class="btn btn-primary px-6">Перейти к стихам</a>
+            <a href="/prose/" class="btn btn-secondary px-6">Читать прозу</a>
+        </div>
+        <p class="mt-6 text-sm text-gray-500">
+            В сборнике {{ poems_count }} стихотворений и {{ pieces_count }} произведений прозы.
+        </p>
+    </div>
+</section>
+
+<section class="bg-white py-16 pb-24 md:py-24 md:pb-32">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-merriweather font-bold text-gray-900 mb-6 text-center">О сборнике</h2>
+        <p class="text-base text-gray-600 font-merriweather leading-relaxed mb-6">
+            Этот проект представляет собой подборку литературных произведений, созданных
+            поэтессой и прозаиком Эллой Гогелиани. Здесь собраны тексты разных лет и жанров:
+            лирика, посвящения, философские размышления, рассказы и эссе.
+        </p>
+        <ul class="list-disc list-inside text-gray-600 space-y-2">
+            <li>Произведения охватывают разные годы и жанры</li>
+            <li>Все тексты хранят авторский стиль и глубину</li>
+            <li>Доступно для чтения на любых устройствах</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

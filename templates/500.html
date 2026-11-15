@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}500 - Внутренняя ошибка сервера{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center">
+    <div class="text-center">
+        <div class="inline-block mb-6">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">500</h1>
+        <p class="text-xl text-gray-600">Внутренняя ошибка сервера</p>
+        <p class="text-gray-500">Произошла непредвиденная ошибка. Пожалуйста, попробуйте позже.</p>
+        <div class="mt-6">
+            <a href="/" class="btn btn-primary">Вернуться на главную</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
