@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Эмблема: небо">
+  <title>Небо</title>
+  <defs>
+    <linearGradient id="sky-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1930"/>
+      <stop offset="0.55" stop-color="#14315A"/>
+      <stop offset="1" stop-color="#27517F"/>
+    </linearGradient>
+    <linearGradient id="sky-sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#CFE4F9"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="400" height="400" rx="40" fill="url(#sky-bg)"/>
+
+  <!-- Геометрия: кольца планет -->
+  <g fill="none" stroke="#7FB4E6" stroke-opacity="0.4">
+    <circle cx="110" cy="96" r="74"/>
+    <ellipse cx="300" cy="96" rx="70" ry="22" transform="rotate(-22 300 96)" stroke-dasharray="4 6"/>
+  </g>
+
+  <!-- Звёзды и пролетающая звезда -->
+  <g fill="#FFFFFF">
+    <circle cx="52" cy="48" r="2.4"/>
+    <circle cx="120" cy="30" r="1.7"/>
+    <circle cx="356" cy="46" r="2"/>
+    <circle cx="40" cy="150" r="1.6"/>
+    <circle cx="250" cy="28" r="1.8"/>
+    <circle cx="342" cy="160" r="1.4"/>
+  </g>
+  <g stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.85">
+    <line x1="330" y1="34" x2="300" y2="64"/>
+  </g>
+
+  <!-- Солнце (белый диск с лучами) -->
+  <circle cx="110" cy="96" r="40" fill="url(#sky-sun)"/>
+  <circle cx="110" cy="96" r="30" fill="none" stroke="#2F5D8C" stroke-opacity="0.4"/>
+  <g stroke="#CFE4F9" stroke-width="3" stroke-linecap="round" stroke-opacity="0.6">
+    <line x1="110" y1="38" x2="110" y2="48"/>
+    <line x1="110" y1="144" x2="110" y2="154"/>
+    <line x1="52" y1="96" x2="62" y2="96"/>
+    <line x1="158" y1="96" x2="168" y2="96"/>
+    <line x1="69" y1="55" x2="76" y2="62"/>
+    <line x1="144" y1="130" x2="151" y2="137"/>
+  </g>
+
+  <!-- Планета с кольцом -->
+  <circle cx="300" cy="96" r="26" fill="#FFFFFF" fill-opacity="0.92"/>
+  <circle cx="300" cy="96" r="34" fill="none" stroke="#CFE4F9" stroke-width="6"/>
+  <circle cx="292" cy="92" r="4" fill="#9FC4EC"/>
+
+  <!-- Геометрические облака -->
+  <g fill="#1E4A78">
+    <rect x="40" y="200" width="120" height="16" rx="8"/>
+    <rect x="70" y="180" width="90" height="16" rx="8"/>
+    <rect x="180" y="226" width="110" height="15" rx="7.5"/>
+  </g>
+  <g fill="#24537F">
+    <rect x="250" y="196" width="110" height="15" rx="7.5"/>
+    <rect x="40" y="258" width="100" height="14" rx="7"/>
+  </g>
+  <rect x="120" y="252" width="90" height="14" rx="7" fill="#1E4A78"/>
+
+  <!-- Горизонт: световая полоса -->
+  <rect x="0" y="300" width="400" height="12" fill="#CFE4F9" fill-opacity="0.55"/>
+  <path d="M0,312 L400,312" stroke="#7FB4E6" stroke-width="3" stroke-opacity="0.5"/>
+
+  <!-- Нижний геометрический слой -->
+  <path d="M0,344 80,318 180,344 270,322 400,344 400,400 0,400 Z" fill="#0D2547"/>
+  <path d="M0,376 120,352 240,378 320,356 400,376 400,400 0,400 Z" fill="#05070D"/>
+</svg>

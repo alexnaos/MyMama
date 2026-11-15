@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Эмблема: горная река">
+  <title>Горная река</title>
+  <defs>
+    <linearGradient id="mr-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1930"/>
+      <stop offset="0.55" stop-color="#12294C"/>
+      <stop offset="1" stop-color="#1B3A66"/>
+    </linearGradient>
+    <linearGradient id="mr-moon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C9E0F7"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="400" height="400" rx="40" fill="url(#mr-bg)"/>
+
+  <!-- Геометрия: кольца -->
+  <g fill="none" stroke="#3E6FA8" stroke-opacity="0.35">
+    <circle cx="86" cy="82" r="72"/>
+    <circle cx="86" cy="82" r="100" stroke-dasharray="3 9"/>
+  </g>
+  <g stroke="#6E9FD8" stroke-opacity="0.16">
+    <line x1="0" y1="160" x2="400" y2="160"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+  </g>
+
+  <!-- Звёзды -->
+  <g fill="#FFFFFF">
+    <circle cx="70" cy="40" r="2.2"/>
+    <circle cx="150" cy="28" r="1.7"/>
+    <circle cx="356" cy="52" r="2"/>
+    <circle cx="118" cy="146" r="1.6"/>
+    <circle cx="244" cy="30" r="1.8"/>
+    <circle cx="338" cy="150" r="1.4"/>
+  </g>
+
+  <!-- Луна -->
+  <circle cx="86" cy="82" r="40" fill="url(#mr-moon)"/>
+  <circle cx="86" cy="82" r="30" fill="none" stroke="#2F5D8C" stroke-opacity="0.35"/>
+  <circle cx="76" cy="76" r="3.4" fill="#BBD6F2"/>
+
+  <!-- Дальние горы -->
+  <polygon points="0,214 96,120 204,226 292,132 400,224 400,238 0,238" fill="#24537F"/>
+  <!-- Горные снежные вершины (белые) -->
+  <polygon points="96,120 84,144 108,144" fill="#EAF3FF"/>
+  <polygon points="292,132 280,158 304,158" fill="#EAF3FF"/>
+
+  <!-- Средние горы -->
+  <polygon points="0,238 120,178 236,240 320,190 400,240 400,252 0,252" fill="#1C426E"/>
+  <polygon points="120,178 108,202 132,202" fill="#EAF3FF" fill-opacity="0.9"/>
+
+  <!-- Река: бурный поток из ущелья к низу -->
+  <path d="M198,150 C186,172 214,186 206,206 C198,226 226,238 218,258 C210,278 238,292 230,314 C224,330 240,344 248,360 L224,360 C212,344 202,330 204,314 C206,294 182,284 190,264 C198,244 172,232 180,214 C188,196 164,184 172,162 C180,142 176,132 178,124 Z"
+        fill="#EAF3FF" fill-opacity="0.92"/>
+  <path d="M186,158 C174,180 204,192 196,212 C188,232 216,244 208,264 C200,284 228,296 220,318 C216,334 232,348 240,362"
+        fill="none" stroke="#7FB4E6" stroke-width="3" stroke-linecap="round" stroke-opacity="0.7"/>
+
+  <!-- Берега (тёмный силуэт по краям реки) -->
+  <path d="M0,272 120,236 168,250 172,400 0,400 Z" fill="#0D2547"/>
+  <path d="M400,270 280,238 232,252 230,400 400,400 Z" fill="#0D2547"/>
+
+  <!-- Передние тёмные берега и ели -->
+  <path d="M0,330 96,304 152,326 150,400 0,400 Z" fill="#05070D"/>
+  <path d="M400,330 300,306 248,328 250,400 400,400 Z" fill="#05070D"/>
+  <g fill="#05070D">
+    <polygon points="64,286 52,330 76,330"/>
+    <polygon points="150,310 138,344 162,344"/>
+    <polygon points="330,306 318,342 342,342"/>
+  </g>
+
+  <!-- Пена на реке (белые штрихи) -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-opacity="0.8">
+    <line x1="192" y1="238" x2="208" y2="238"/>
+    <line x1="204" y1="292" x2="220" y2="292"/>
+    <line x1="214" y1="330" x2="228" y2="330"/>
+  </g>
+</svg>

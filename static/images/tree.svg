@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Эмблема: дерево">
+  <title>Дерево</title>
+  <defs>
+    <linearGradient id="tree-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1930"/>
+      <stop offset="0.55" stop-color="#12294C"/>
+      <stop offset="1" stop-color="#1B3A66"/>
+    </linearGradient>
+    <linearGradient id="tree-moon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C9E0F7"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="400" height="400" rx="40" fill="url(#tree-bg)"/>
+
+  <!-- Геометрия: кольца и линии -->
+  <g fill="none" stroke="#3E6FA8" stroke-opacity="0.35">
+    <circle cx="300" cy="84" r="70"/>
+    <circle cx="300" cy="84" r="100" stroke-dasharray="3 9"/>
+  </g>
+  <g stroke="#6E9FD8" stroke-opacity="0.16">
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="190" x2="400" y2="190"/>
+  </g>
+
+  <!-- Звёзды -->
+  <g fill="#FFFFFF">
+    <circle cx="58" cy="70" r="2.4"/>
+    <circle cx="120" cy="46" r="1.8"/>
+    <circle cx="356" cy="42" r="2.2"/>
+    <circle cx="40" cy="130" r="1.6"/>
+    <circle cx="250" cy="36" r="1.8"/>
+    <circle cx="332" cy="150" r="1.5"/>
+  </g>
+
+  <!-- Луна -->
+  <circle cx="300" cy="84" r="42" fill="url(#tree-moon)"/>
+  <circle cx="300" cy="84" r="32" fill="none" stroke="#2F5D8C" stroke-opacity="0.35"/>
+  <circle cx="300" cy="84" r="24" fill="none" stroke="#2F5D8C" stroke-opacity="0.22"/>
+  <g fill="#BBD6F2">
+    <circle cx="288" cy="76" r="3.6"/>
+    <circle cx="313" cy="92" r="2.8"/>
+  </g>
+
+  <!-- Дальние холмы -->
+  <path d="M0,262 80,226 170,258 260,224 340,252 400,238 400,400 0,400 Z" fill="#1C426E"/>
+
+  <!-- Крона дерева (геометрические круги) -->
+  <g fill="#05070D">
+    <circle cx="200" cy="158" r="58"/>
+    <circle cx="150" cy="196" r="42"/>
+    <circle cx="250" cy="196" r="42"/>
+    <circle cx="200" cy="118" r="40"/>
+    <circle cx="200" cy="196" r="46"/>
+  </g>
+  <!-- Тень/подсветка кроны -->
+  <g fill="#122946">
+    <circle cx="170" cy="180" r="22"/>
+    <circle cx="226" cy="172" r="16"/>
+  </g>
+
+  <!-- Ствол -->
+  <polygon points="188,208 212,208 206,312 194,312" fill="#05070D"/>
+  <g fill="#0A0F1A">
+    <polygon points="188,308 168,322 186,318"/>
+    <polygon points="212,308 232,322 214,318"/>
+  </g>
+
+  <!-- Земля (чёрный силуэт) -->
+  <path d="M0,318 96,286 190,318 290,288 400,318 400,400 0,400 Z" fill="#05070D"/>
+
+  <!-- Детали: светлое пятно у корней -->
+  <ellipse cx="200" cy="326" rx="52" ry="8" fill="#2F5D8C" fill-opacity="0.5"/>
+</svg>

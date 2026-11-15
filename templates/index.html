@@ -66,8 +66,9 @@
     <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl md:text-3xl font-merriweather font-bold text-gray-900 mb-8 text-center">Разделы сборника</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <a href="/poetry/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+<a href="/poetry/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
                 <div>
+                    <img src="{{ url_for('static', filename='images/sky.svg') }}" alt="" class="h-12 w-12 rounded-lg mb-3">
                     <h3 class="font-semibold text-gray-900 mb-2">Поэзия</h3>
                     <p class="text-sm text-gray-600">
                         {{ poems_count }} {{ ru_plural(poems_count, 'стихотворение', 'стихотворения', 'стихотворений') }} — лирика, посвящения, стихи разных лет.
@@ -77,6 +78,7 @@
             </a>
             <a href="/prose/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
                 <div>
+                    <img src="{{ url_for('static', filename='images/mountain-river.svg') }}" alt="" class="h-12 w-12 rounded-lg mb-3">
                     <h3 class="font-semibold text-gray-900 mb-2">Проза</h3>
                     <p class="text-sm text-gray-600">
                         {{ pieces_count }} {{ ru_plural(pieces_count, 'произведение', 'произведения', 'произведений') }} — автобиографическая повесть, рассказы, эссе.
@@ -86,6 +88,7 @@
             </a>
             <a href="/gallery/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
                 <div>
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" class="h-12 w-12 rounded-lg mb-3">
                     <h3 class="font-semibold text-gray-900 mb-2">Галерея</h3>
                     <p class="text-sm text-gray-600">
                         Иллюстрации и визуальные образы произведений.
@@ -93,7 +96,7 @@
                 </div>
                 <span class="text-blue-700 text-sm font-medium mt-4">Перейти →</span>
             </a>
-        </div>
+            </div>
     </div>
 </section>
 {% endblock %}
