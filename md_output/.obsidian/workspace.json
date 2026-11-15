@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "проза/в поисках Макондо.md",
-                "mode": "source",
+                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+                "mode": "preview",
                 "source": true,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "в поисках Макондо"
+              "title": "ВСЕМУ ЖИВОМУ ПОКЛОН"
             }
           }
         ]
@@ -56,10 +56,10 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ПОКЛОН ВСЕМУ ЖИВОМУ",
                 "matchingCase": false,
                 "explainSearch": false,
-                "collapseAll": false,
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               },
@@ -80,7 +80,8 @@
               "title": "Закладки"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -100,7 +101,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "проза/в поисках Макондо.md",
+                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "проза/в поисках Макондо.md",
+                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -162,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "проза/в поисках Макондо.md",
+                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -191,35 +192,51 @@
   },
   "active": "0ef61474aa5abe08",
   "lastOpenFiles": [
-    "проза/КОТ.md",
+    "поэзия/ПОКЛОН ВСЕМУ ЖИВОМУ.md",
+    "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+    "статьи/вариантПОКЛОН ВСЕМУ ЖИВОМУ.md",
+    "поэзия/Без тебя.md",
+    "static/images/content/Pasted image 20261115183608.png",
+    "поэзия/21-21.md",
+    "static/images/content/Pasted image 20261115183313.png",
+    "проза/Несорванный цветок.md",
     "проза/наваждение.md",
+    "проза/Мальчишник.md",
+    "проза/КОТ.md",
+    "проза/В плену дремот.md",
+    "поэзия/Время любить/О женщина!/О женщина.md",
+    "поэзия/Время любить/МИР ДОМУ ТВОЕМУ/Мир дому твоему.md",
+    "поэзия/март/время алых маков.md",
     "проза/в поисках Макондо.md",
-    "статьи/В поисках города Макондо.md",
-    "Clippings/2026-11-15_16-52-21.png",
-    "Неплохой генератор изображений.md",
+    "проза/ДЕТИ   МОИХ   ДЕТЕЙ.md",
+    "проза/Улица Комсомольская.md",
+    "проза/Стешина  дача.md",
+    "поэзия/стихи для Люды/Поэтическая дорожка.md",
+    "поэзия/С вами связана стихами/Подражание Хайяму.md",
+    "поэзия/СЕСТРЁНКА   ЛАРИСКА.md",
+    "проза/РЕКА И СТАРИЦА.md",
+    "проза/Жила-была я.md",
+    "проза/Выхухоль.md",
+    "static/images/content/Pasted image 20261115182912.png",
+    "проза/Век мой, зверь мой.md",
+    "проза/Житейские истории.md",
+    "static/images/content/kling_20261115_IMAGE____________5800_0.png",
+    "static/images/content/Pasted image 20261115182109.png",
+    "check_images.py",
+    "static/images/content/Pasted image 20261115173450.png",
+    "static/images/content/Pasted image 2026111517345.png",
+    "static/images/content/kling_20261115_IMAGE____________5800_2.png",
+    "static/images/content/Не подтвержден 928321.crdownload",
+    "проза/подонок.md",
+    "static/images/content/Не подтвержден 371743.crdownload",
+    "static/images/content/Pasted image 20261115174813.png",
+    "static/images/content/Pasted image 20261115173413.png",
+    "static/images/content/images.jfif",
+    "static/images/content",
+    "static/images",
+    "static",
     "Clippings/images.jfif",
     "Clippings/Не подтвержден 372391.crdownload",
-    "Clippings",
-    "проза/В плену дремот.md",
-    "поэзия/Без тебя.md",
-    "проза/Выхухоль.md",
-    "проза/Загадка стекла.md",
-    "поэзия/С вами связана стихами/Зимнее/К Новому году1.md",
-    "поэзия/С вами связана стихами/Зимнее/Предзимье.md",
-    "поэзия/С вами связана стихами/Одинокое сердце/Мужество. Анна Ахматова.md",
-    "поэзия/С вами связана стихами/Одинокое сердце/Одинокое сердце.md",
-    "поэзия/С вами связана стихами/посвящения/стареющей женщине.md",
-    "поэзия/С вами связана стихами/Таджикистан, Магнитка/Таджикистан.md",
-    "поэзия/С вами связана стихами/Таджикистан, Магнитка/Мещера.md",
-    "поэзия/Язвит. стихи.md",
-    "поэзия/C МАГНИТКОЙ  В СЕРДЦЕ.md",
-    "поэзия/Финансы-романсы.md",
-    "поэзия/УРАЛ.md",
-    "поэзия/СМЕХОТВОРЕНИЯ.md",
-    "поэзия/Речи и свечи.md",
-    "поэзия/ПОСВЯЩЕНИЯ.md",
-    "поэзия/Посвящение Л.md",
-    "поэзия/ПАЛИНДРОМЫ.md",
-    "поэзия/НОВОГОДНЯЯ  ЗАЗДРАВНАЯ, ММК.md"
+    "Clippings"
   ]
 }

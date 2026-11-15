@@ -1,4 +1,7 @@
 {
   "attachmentFolderPath": "static\\images\\content",
-  "newLinkFormat": "absolute"
+  "newLinkFormat": "absolute",
+  "useMarkdownLinks": true,
+  "alwaysUpdateLinks": true,
+  "promptDelete": false
 }

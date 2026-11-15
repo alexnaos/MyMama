@@ -14,6 +14,7 @@ import io
 import os
 import re
 import time
+import urllib.parse
 import uuid
 import zipfile
 from xml.sax.saxutils import escape as xml_escape
@@ -195,8 +196,69 @@ def _build_work(path, section, folder, folder_label, raw_body, meta):
     }
 
 
+_OBSIDIAN_WIKI_RE = re.compile(r'!\[\[(.*?)\]\]')
+_OBSIDIAN_MD_RE = re.compile(r'!\[([^\]]*)\]\(([^)\n]+)\)')
+
+
+def _obsidian_img_html(alt, raw_path):
+    """Из пути в Obsidian-ссылке собирает готовый HTML-тег <img>.
+
+    Возвращает None, если путь не относится к static/ (например, https://…,
+    images/…, /static/ уже абсолютный) — в этом случае ссылку не трогаем.
+    """
+    path = (raw_path or '').strip(" \t\"'")
+    if not path.startswith('static/') and not path.startswith('/static/'):
+        return None
+    # Относительный путь static/... -> абсолютный /static/...
+    if path.startswith('static/') and not path.startswith('/'):
+        path = '/' + path
+    # Пробелы и спецсимволы в URL: 'Pasted image.png' -> 'Pasted%20image.png'
+    quoted = urllib.parse.quote(path, safe='/%:')
+    # Альт-текст: берём переданный, иначе имя файла без расширения
+    alt = (alt or '').strip()
+    if not alt:
+        alt = os.path.basename(path)
+    alt = xml_escape(alt)
+    return ('<img class="w-full h-auto rounded-lg my-4" '
+            'src="%s" alt="%s">') % (quoted, alt)
+
+
+def _process_obsidian_images(text):
+    """Определяет и превращает Obsidian-ссылки на картинки в теги <img>.
+
+    Исторически в контенте два формата:
+      1. Вики-ссылки            ![[static/images/content/Pasted image 2026..png]]
+      2. Стандартный Markdown   ![Pasted image](static/images/content/Pasted image 2026..png)
+
+    Для каждой ссылки:
+      - извлекаем путь к картинке;
+      - если путь начинается с "static/" (без слэша) — делаем "/static/...";
+      - кодируем URL через urllib.parse.quote (пробелы -> %20);
+      - заменяем ссылку на <img class="w-full h-auto rounded-lg my-4" ...>.
+
+    Прочие пути (http(s)://…, /static/…, images/…) не затрагиваем.
+    """
+    def _proc_wiki(match):
+        content = match.group(1).strip()
+        alt, path = None, content
+        if '|' in content:  # формат ![[path|альтернативный текст]]
+            path, _, alias = content.partition('|')
+            alt = alias.strip() or alt
+        img = _obsidian_img_html(alt, path)
+        return img if img is not None else match.group(0)
+
+    def _proc_md(match):
+        img = _obsidian_img_html(match.group(1), match.group(2))
+        return img if img is not None else match.group(0)
+
+    text = _OBSIDIAN_WIKI_RE.sub(_proc_wiki, text)
+    text = _OBSIDIAN_MD_RE.sub(_proc_md, text)
+    return text
+
+
 def render_markdown(text):
     """Рендерит markdown в HTML."""
+    text = _process_obsidian_images(text)  # Obsidian: ![[...]] и ![...](...) -> <img>
     return mdlib.markdown(text, extensions=MARKDOWN_EXTENSIONS)
 
 
@@ -470,6 +532,13 @@ def _gallery_images():
             continue
         urls.append('/static/images/' + entry)
     return urls
+
+
+@app.route('/static/images/content/<path:filename>')
+def obsidian_content_images(filename):
+    """Отдаёт картинки, вложенные Obsidian в md_output/static/images/content."""
+    content_dir = os.path.join(MD_OUTPUT_DIR, 'static', 'images', 'content')
+    return send_from_directory(content_dir, filename)
 
 
 @app.route('/gallery/')
