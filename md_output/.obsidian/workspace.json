@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "поэзия/Любимый.md",
+                "file": "проза/Мальчишник.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Любимый"
+              "title": "Мальчишник"
             }
           }
         ]
@@ -190,6 +190,26 @@
   },
   "active": "0ef61474aa5abe08",
   "lastOpenFiles": [
+    "проза/Кот.md",
+    "проза/Казусы И Ляпы.md",
+    "проза/Житейские Истории.md",
+    "проза/Загадка Стекла.md",
+    "проза/Жила Была Я.md",
+    "проза/Дети Моих Детей.md",
+    "проза/Выхухоль.md",
+    "проза/Вино Хмельное Жизнь.md",
+    "проза/В Плену Дремот.md",
+    "проза/В Поисках Макондо.md",
+    "проза/Век Мой, Зверь Мой.md",
+    "проза/Мальчишник.md",
+    "проза/Наваждение.md",
+    "проза/Не Было Бы Счастья.md",
+    "проза/Несорванный Цветок.md",
+    "проза/Очищение Души.md",
+    "проза/Осколки Чьей То Жизни.md",
+    "static/images/content/Pasted image 20261115191233.png",
+    "static/images/content/Pasted image 20261115191153.png",
+    "поэзия/Любимый.md",
     "static/images/content/images.jfif",
     "static/images/content/Не подтвержден 652850.crdownload",
     "поэзия/Ко Дню Рождения.md",
@@ -200,24 +220,7 @@
     "поэзия/Всему Живому Поклон.md",
     "поэзия/Всё Для Вас И О Вас.md",
     "поэзия/Время.md",
-    "поэзия/21 21.md",
-    "поэзия/Без Тебя.md",
     "normalize_names.py",
-    "проза/подонок.md",
-    "проза/Житейские истории.md",
-    "проза/Вино хмельное- жизнь.md",
-    "статьи/МЫ НА ЁМ РАЗГОВАРИВАЕМ.md",
-    "статьи/НЕ ИМЕЙ СТО РУБЛЕЙ.md",
-    "статьи/немецкая песня.md",
-    "статьи/Приехала и пригодилась.md",
-    "статьи/Проблемы защиты и сохранения русского языка.md",
-    "статьи/РАЗМЫШЛЕНИЯ КАК РЕЦЕНЗИЯ.md",
-    "статьи/Что будет с библиотекой.md",
-    "поэзия/перево1,2.md",
-    "поэзия/Время любить/Размышления/В разрезе.md",
-    "поэзия/стихи для Люды/ЮБИЛЕЙНАЯ ШУТОЧНАЯ.md",
-    "поэзия/стихи для Люды/Поэтическая дорожка.md",
-    "поэзия/стихи для Люды/НАСТАВЛЕНИЕ.md",
     "static/images/content/Pasted image 20261115184323.png",
     "static/images/content/Pasted image 20261115183608.png",
     "static/images/content/Pasted image 20261115183313.png",
@@ -227,14 +230,11 @@
     "check_images.py",
     "static/images/content/Pasted image 20261115173450.png",
     "static/images/content/Pasted image 2026111517345.png",
-    "static/images/content/kling_20261115_IMAGE____________5800_2.png",
     "static/images/content/Не подтвержден 928321.crdownload",
     "static/images/content/Не подтвержден 371743.crdownload",
-    "static/images/content/Pasted image 20261115174813.png",
     "static/images/content",
     "static/images",
     "static",
-    "Clippings/images.jfif",
-    "Clippings/Не подтвержден 372391.crdownload"
+    "Clippings/images.jfif"
   ]
 }
