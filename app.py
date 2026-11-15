@@ -9,13 +9,18 @@ md_output/поэзия и md_output/проза (включая вложенны�
 Весь контент хранится в кодировке UTF-8 — кириллица поддерживается полностью.
 """
 
+import configparser
+import io
 import os
 import re
 import time
+import uuid
+import zipfile
+from xml.sax.saxutils import escape as xml_escape
 
 import markdown as mdlib
 import yaml
-from flask import Flask, abort, render_template, request
+from flask import Flask, abort, render_template, request, send_file, send_from_directory
 from markupsafe import Markup
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -92,6 +97,36 @@ def _as_list(value):
     if isinstance(value, (list, tuple)):
         return [str(item) for item in value]
     return [str(value)]
+
+SOCIAL_ORDER = ['telegram', 'vkontakte', 'youtube', 'instagram', 'odnoklassniki']
+SOCIAL_LABELS = {
+    'telegram': 'Telegram',
+    'vkontakte': 'ВКонтакте',
+    'youtube': 'YouTube',
+    'instagram': 'Instagram',
+    'odnoklassniki': 'Одноклассники',
+}
+
+
+def load_social_links():
+    """Список ссылок на соцсети из config.ini (секция [social]).
+
+    Возвращает только те пункты, у которых указан непустой URL.
+    """
+    parser = configparser.ConfigParser(interpolation=None)
+    try:
+        parser.read(os.path.join(BASE_DIR, 'config.ini'), encoding='utf-8')
+    except (OSError, configparser.Error):
+        parser = configparser.ConfigParser(interpolation=None)
+    links = []
+    if parser.has_section('social'):
+        for key in SOCIAL_ORDER:
+            value = (parser.get('social', key, fallback='') or '').strip()
+            if value:
+                links.append({'key': key,
+                              'label': SOCIAL_LABELS.get(key, key),
+                              'url': value})
+    return links
 
 
 def _get_cover_url(cover_val):
@@ -307,10 +342,11 @@ def _neighbors(collection, work):
 
 @app.context_processor
 def _template_helpers():
-    """Функции, доступные во всех шаблонах."""
+    """Функции и данные, доступные во всех шаблонах."""
     return {'work_excerpt': work_excerpt,
             'work_body_html': work_body_html,
-            'ru_plural': ru_plural}
+            'ru_plural': ru_plural,
+            'social_links': load_social_links()}
 # --------------------------------------------------------------------------
 # Маршруты сайта
 # --------------------------------------------------------------------------
@@ -415,11 +451,266 @@ def contact():
                            description='Контактная информация', sent=sent, name=name)
 
 
+IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'}
+
+
+def _gallery_images():
+    """Список URL картинок из static/images, исключая подпапку covers."""
+    base = os.path.join(BASE_DIR, 'static', 'images')
+    if not os.path.isdir(base):
+        return []
+    urls = []
+    for entry in sorted(os.listdir(base), key=_cased):
+        full = os.path.join(base, entry)
+        # Пропускаем подпапки (например, covers) — берём только файлы верхнего уровня.
+        if os.path.isdir(full):
+            continue
+        ext = os.path.splitext(entry)[1].lower()
+        if ext not in IMAGE_EXTS:
+            continue
+        urls.append('/static/images/' + entry)
+    return urls
+
+
 @app.route('/gallery/')
 def gallery():
-    """Страница галереи."""
+    """Страница галереи (слайдшоу по картинкам из static/images)."""
+    images = _gallery_images()
     return render_template('gallery.html', active='gallery', title='Галерея',
-                           description='Галерея иллюстраций и оформления')
+                           description='Галерея иллюстраций и оформления',
+                           images=images)
+
+
+DOWNLOAD_DIR = os.path.join(MD_OUTPUT_DIR, 'download')
+
+
+def _download_items():
+    """Список файлов из md_output/download (рекурсивно) для страницы скачивания."""
+    items = []
+    if not os.path.isdir(DOWNLOAD_DIR):
+        return items
+    for dirpath, dirnames, filenames in os.walk(DOWNLOAD_DIR):
+        dirnames.sort(key=_cased)
+        for filename in sorted(filenames, key=_cased):
+            full = os.path.join(dirpath, filename)
+            rel = os.path.relpath(full, DOWNLOAD_DIR)
+            try:
+                size = os.path.getsize(full)
+            except OSError:
+                size = 0
+            items.append({
+                'path': rel.replace(os.sep, '/'),
+                'display': rel.replace(os.sep, ' → '),
+                'size': size,
+            })
+    items.sort(key=lambda item: _cased(item['display']))
+    return items
+
+
+@app.route('/download/')
+def downloads():
+    """Страница загрузки файлов сборника (из md_output/download)."""
+    files = _download_items()
+    return render_template('download.html', active='download', title='Скачать',
+                           description='Загрузка файлов сборника',
+                           files=files)
+
+
+@app.route('/download/<path:filename>')
+def download_file(filename):
+    """Отдаёт файл из md_output/download (защита от обхода каталога)."""
+    return send_from_directory(DOWNLOAD_DIR, filename, as_attachment=True)
+
+
+@app.route('/download/all/')
+def download_all():
+    """Скачать все файлы из md_output/download одним ZIP-архивом."""
+    buffer = io.BytesIO()
+    count = 0
+    with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
+        if os.path.isdir(DOWNLOAD_DIR):
+            for dirpath, dirnames, filenames in os.walk(DOWNLOAD_DIR):
+                dirnames.sort(key=_cased)
+                for filename in sorted(filenames, key=_cased):
+                    full = os.path.join(dirpath, filename)
+                    rel = os.path.relpath(full, DOWNLOAD_DIR).replace(os.sep, '/')
+                    zf.write(full, rel)
+                    count += 1
+    if count == 0:
+        abort(404)
+    buffer.seek(0)
+    return send_file(buffer, mimetype='application/zip', as_attachment=True,
+                     download_name='Сборник_Эллы_Гогелиани.zip')
+
+
+# --------------------------------------------------------------------------
+# Экспорт всего сборника в EPUB
+# --------------------------------------------------------------------------
+
+EPUB_STYLE = '''\
+body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.6; }
+h1 { text-align: center; font-size: 1.5em; margin: 0 0 1em; }
+.work-title { text-align: center; font-weight: bold; font-size: 1.3em; margin: 0 0 0.6em; }
+.author { text-align: center; font-style: italic; margin: 0 0 1.2em; }
+p { text-indent: 1.5em; margin: 0 0 0.6em; }
+p.center { text-indent: 0; text-align: center; }
+blockquote, td { page-break-inside: avoid; }
+'''
+
+EPUB_EPUBS = None  # кэш сгенерированной книги и метки содержимого
+
+
+def _epub_assembled():
+    """Собирает главы, оглавление и content.opf; возвращает набор фрагментов."""
+    uid = str(uuid.uuid4())
+    modified = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+    book_title = 'Жила-была я… Сборник Эллы Гогелиани'
+    book_author = 'Элла Гогелиани'
+
+    chapters = []   # (fname, xhtml)
+    toc_entries = []  # (section, [(label, href)])
+    index = 0
+    for section_label, collection in _epub_sections():
+        entries = []
+        for work in collection:
+            index += 1
+            fname = 'ch%04d.xhtml' % index
+            title = work['title'] or ('Произведение %d' % index)
+            body_html = work_body_html(work)
+            xhtml = (
+                '<?xml version="1.0" encoding="utf-8"?>\n'
+                '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">\n'
+                '<head><meta charset="utf-8"/>'
+                '<title>%s</title>'
+                '<link rel="stylesheet" type="text/css" href="style.css"/></head>\n'
+                '<body>\n'
+                '<h1 class="work-title">%s</h1>\n'
+                '<p class="author">%s</p>\n'
+                '%s\n'
+                '</body></html>\n'
+            ) % (xml_escape(title), xml_escape(title),
+                 xml_escape(work['author'] or ''), body_html)
+            chapters.append((fname, xhtml))
+            entries.append((title, fname))
+        toc_entries.append((section_label, entries))
+
+    container = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:'
+        'xmlns:container">\n'
+        '  <rootfiles>\n'
+        '    <rootfile full-path="OEBPS/content.opf" '
+        'media-type="application/oebps-package+xml"/>\n'
+        '  </rootfiles>\n'
+        '</container>\n'
+    )
+
+    manifest_items = [
+        '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" '
+        'properties="nav"/>',
+        '<item id="css" href="style.css" media-type="text/css"/>',
+    ]
+    manifest_items += [
+        '<item id="ch%04d" href="%s" media-type="application/xhtml+xml"/>' % (i, fname)
+        for i, (fname, _) in enumerate(chapters, start=1)
+    ]
+    spine_items = ['<itemref idref="ch%04d"/>' % i for i in range(1, len(chapters) + 1)]
+
+    opf = (
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" '
+        'unique-identifier="uid" xml:lang="ru">\n'
+        '  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n'
+        '    <dc:identifier id="uid">urn:uuid:%s</dc:identifier>\n'
+        '    <dc:title>%s</dc:title>\n'
+        '    <dc:creator id="creator">%s</dc:creator>\n'
+        '    <dc:language>ru</dc:language>\n'
+        '    <meta property="dcterms:modified">%s</meta>\n'
+        '    <meta refines="#creator" property="file-as">Гогелиани, Элла</meta>\n'
+        '  </metadata>\n'
+        '  <manifest>\n%s\n  </manifest>\n'
+        '  <spine>\n%s\n  </spine>\n'
+        '</package>\n'
+    ) % (uid, xml_escape(book_title), xml_escape(book_author), modified,
+         '\n'.join(manifest_items), '\n'.join(spine_items))
+    return book_title, chapters, toc_entries, container, opf
+
+
+def build_epub():
+    """Собирает EPUB-файл (байты) со всем сборником. Результат кэшируется."""
+    global EPUB_EPUBS
+    signature = _epub_modified()
+    if EPUB_EPUBS is not None and EPUB_EPUBS[0] == signature:
+        return EPUB_EPUBS[1]
+
+    book_title, chapters, toc_entries, container, opf = _epub_assembled()
+
+    # nav.xhtml (EPUB3)
+    nav_lines = ['<ol>']
+    for section_label, entries in toc_entries:
+        nav_lines.append('<li><span class="sec">%s</span><ol>' % xml_escape(section_label))
+        for label, fname in entries:
+            nav_lines.append('<li><a href="%s">%s</a></li>' % (fname, xml_escape(label)))
+        nav_lines.append('</ol></li>')
+    nav_lines.append('</ol>')
+    nav = (
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<html xmlns="http://www.w3.org/1999/xhtml" '
+        'xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ru">\n'
+        '<head><title>Оглавление</title>'
+        '<link rel="stylesheet" type="text/css" href="style.css"/></head>\n'
+        '<body>\n<h1>Оглавление</h1>\n'
+        '<nav epub:type="toc" id="toc">\n%s\n</nav>\n'
+        '</body></html>\n'
+    ) % '\n'.join(nav_lines)
+
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, 'w') as zf:
+        zf.writestr('mimetype', 'application/epub+zip',
+                    compress_type=zipfile.ZIP_STORED)
+        zf.writestr('META-INF/container.xml', container)
+        zf.writestr('OEBPS/content.opf', opf)
+        zf.writestr('OEBPS/nav.xhtml', nav)
+        zf.writestr('OEBPS/style.css', EPUB_STYLE)
+        for fname, xhtml in chapters:
+            zf.writestr('OEBPS/' + fname, xhtml)
+    buffer.seek(0)
+    data = buffer.read()
+
+    EPUB_EPUBS = (signature, data)
+    return data
+
+
+@app.route('/download/epub/')
+def download_epub():
+    """Скачать весь сборник в формате EPUB."""
+    data = build_epub()
+    return send_file(io.BytesIO(data), mimetype='application/epub+zip',
+                     as_attachment=True,
+                     download_name='Сборник_Эллы_Гогелиани.epub')
+
+
+def _epub_sections():
+    """Разделы сборника в порядке книги."""
+    return [('Поэзия', POEMS), ('Проза', PIECES), ('Статьи', ARTICLES)]
+
+
+def _epub_modified():
+    """Метка для пересборки книги при изменении контента."""
+    parts = []
+    for base in (POETRY_DIR, PROSE_DIR, ARTICLES_DIR):
+        for dirpath, dirnames, filenames in os.walk(base):
+            dirnames.sort(key=_cased)
+            for filename in sorted(filenames, key=_cased):
+                if not filename.lower().endswith('.md'):
+                    continue
+                path = os.path.join(dirpath, filename)
+                try:
+                    stat = os.stat(path)
+                except OSError:
+                    continue
+                parts.append((path, stat.st_mtime_ns, stat.st_size))
+    return parts
 
 
 @app.errorhandler(404)

@@ -27,8 +27,8 @@
         {% for article in works %}
         <article class="card hover:shadow-lg transition-shadow flex flex-col">
             <div class="flex items-start gap-3 mb-3">
-                <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-                    <span class="text-red-700 font-medium text-sm">{{ article.id }}</span>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <span class="text-blue-700 font-medium text-sm">{{ article.id }}</span>
                 </div>
                 <div class="flex-1">
                     <h3 class="font-semibold text-gray-900 mb-1">{{ article.title }}</h3>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <p class="text-sm text-gray-600 line-clamp-3 flex-1">{{ work_excerpt(article) }}</p>
-            <a href="/article/{{ article.id }}/" class="text-red-700 text-sm font-medium mt-3 block">Читать полностью →</a>
+            <a href="/article/{{ article.id }}/" class="text-blue-700 text-sm font-medium mt-3 block">Читать полностью →</a>
         </article>
         {% endfor %}
     </div>

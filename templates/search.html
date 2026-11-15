@@ -33,7 +33,7 @@
                 <h3 class="font-semibold text-gray-900">{{ poem.title }}</h3>
                 <p class="text-sm text-gray-500">{{ poem.author }}</p>
                 <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(poem, 180) }}</p>
-                <a href="/poem/{{ poem.id }}/" class="text-red-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+                <a href="/poem/{{ poem.id }}/" class="text-blue-700 text-sm font-medium mt-2 inline-block">Читать →</a>
             </article>
             {% endfor %}
         </div>
@@ -49,7 +49,7 @@
                 <h3 class="font-semibold text-gray-900">{{ piece.title }}</h3>
                 <p class="text-sm text-gray-500">{{ piece.author }}</p>
                 <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(piece, 180) }}</p>
-                <a href="/piece/{{ piece.id }}/" class="text-red-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+                <a href="/piece/{{ piece.id }}/" class="text-blue-700 text-sm font-medium mt-2 inline-block">Читать →</a>
             </article>
             {% endfor %}
         </div>
