@@ -13,13 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+                "file": "поэзия/Любимый.md",
                 "mode": "preview",
-                "source": true,
-                "backlinks": false
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "ВСЕМУ ЖИВОМУ ПОКЛОН"
+              "title": "Любимый"
             }
           }
         ]
@@ -56,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ПОКЛОН ВСЕМУ ЖИВОМУ",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -80,8 +79,7 @@
               "title": "Закладки"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -101,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+                "file": "проза/РЕКА И СТАРИЦА.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+                "file": "проза/РЕКА И СТАРИЦА.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -163,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
+                "file": "проза/РЕКА И СТАРИЦА.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -192,34 +190,38 @@
   },
   "active": "0ef61474aa5abe08",
   "lastOpenFiles": [
-    "поэзия/ПОКЛОН ВСЕМУ ЖИВОМУ.md",
-    "поэзия/ВСЕМУ ЖИВОМУ ПОКЛОН.md",
-    "статьи/вариантПОКЛОН ВСЕМУ ЖИВОМУ.md",
-    "поэзия/Без тебя.md",
-    "static/images/content/Pasted image 20261115183608.png",
-    "поэзия/21-21.md",
-    "static/images/content/Pasted image 20261115183313.png",
-    "проза/Несорванный цветок.md",
-    "проза/наваждение.md",
-    "проза/Мальчишник.md",
-    "проза/КОТ.md",
-    "проза/В плену дремот.md",
-    "поэзия/Время любить/О женщина!/О женщина.md",
-    "поэзия/Время любить/МИР ДОМУ ТВОЕМУ/Мир дому твоему.md",
-    "поэзия/март/время алых маков.md",
-    "проза/в поисках Макондо.md",
-    "проза/ДЕТИ   МОИХ   ДЕТЕЙ.md",
-    "проза/Улица Комсомольская.md",
-    "проза/Стешина  дача.md",
-    "поэзия/стихи для Люды/Поэтическая дорожка.md",
-    "поэзия/С вами связана стихами/Подражание Хайяму.md",
-    "поэзия/СЕСТРЁНКА   ЛАРИСКА.md",
-    "проза/РЕКА И СТАРИЦА.md",
-    "проза/Жила-была я.md",
-    "проза/Выхухоль.md",
-    "static/images/content/Pasted image 20261115182912.png",
-    "проза/Век мой, зверь мой.md",
+    "static/images/content/images.jfif",
+    "static/images/content/Не подтвержден 652850.crdownload",
+    "поэзия/Ко Дню Рождения.md",
+    "поэзия/К Женщине.md",
+    "поэзия/Жить По.md",
+    "поэзия/Для Любимой.md",
+    "проза/Изречения.md",
+    "поэзия/Всему Живому Поклон.md",
+    "поэзия/Всё Для Вас И О Вас.md",
+    "поэзия/Время.md",
+    "поэзия/21 21.md",
+    "поэзия/Без Тебя.md",
+    "normalize_names.py",
+    "проза/подонок.md",
     "проза/Житейские истории.md",
+    "проза/Вино хмельное- жизнь.md",
+    "статьи/МЫ НА ЁМ РАЗГОВАРИВАЕМ.md",
+    "статьи/НЕ ИМЕЙ СТО РУБЛЕЙ.md",
+    "статьи/немецкая песня.md",
+    "статьи/Приехала и пригодилась.md",
+    "статьи/Проблемы защиты и сохранения русского языка.md",
+    "статьи/РАЗМЫШЛЕНИЯ КАК РЕЦЕНЗИЯ.md",
+    "статьи/Что будет с библиотекой.md",
+    "поэзия/перево1,2.md",
+    "поэзия/Время любить/Размышления/В разрезе.md",
+    "поэзия/стихи для Люды/ЮБИЛЕЙНАЯ ШУТОЧНАЯ.md",
+    "поэзия/стихи для Люды/Поэтическая дорожка.md",
+    "поэзия/стихи для Люды/НАСТАВЛЕНИЕ.md",
+    "static/images/content/Pasted image 20261115184323.png",
+    "static/images/content/Pasted image 20261115183608.png",
+    "static/images/content/Pasted image 20261115183313.png",
+    "static/images/content/Pasted image 20261115182912.png",
     "static/images/content/kling_20261115_IMAGE____________5800_0.png",
     "static/images/content/Pasted image 20261115182109.png",
     "check_images.py",
@@ -227,16 +229,12 @@
     "static/images/content/Pasted image 2026111517345.png",
     "static/images/content/kling_20261115_IMAGE____________5800_2.png",
     "static/images/content/Не подтвержден 928321.crdownload",
-    "проза/подонок.md",
     "static/images/content/Не подтвержден 371743.crdownload",
     "static/images/content/Pasted image 20261115174813.png",
-    "static/images/content/Pasted image 20261115173413.png",
-    "static/images/content/images.jfif",
     "static/images/content",
     "static/images",
     "static",
     "Clippings/images.jfif",
-    "Clippings/Не подтвержден 372391.crdownload",
-    "Clippings"
+    "Clippings/Не подтвержден 372391.crdownload"
   ]
 }

@@ -1,14 +1,15 @@
 # Временные файлы Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 .pytest_cache/
 
 # Логи службы
 *.log
 service.log
 service-error.log
+service_out.log
+service_err.log
 
 # Архивы и бинарники
 *.zip
@@ -21,12 +22,19 @@ venv/
 .env
 REPORT.md
 
-# Временные файлы редакторов
+# Временные файлы редакторов и ОС
 .vscode/
 .idea/
 .DS_Store
+Thumbs.db
 
 # Артефакты самопроверки (selftest.py)
 selftest_*.html
 selftest_report.txt
 proxycheck.txt
+
+# Папка Obsidian (если не хотите заливать её в репозиторий)
+.obsidian/
+
+# Если хотите игнорировать только автоматически созданные картинки из Obsidian:
+md_output/static/images/content/
