@@ -25,3 +25,8 @@ REPORT.md
 .vscode/
 .idea/
 .DS_Store
+
+# Артефакты самопроверки (selftest.py)
+selftest_*.html
+selftest_report.txt
+proxycheck.txt

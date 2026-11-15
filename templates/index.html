@@ -2,39 +2,98 @@
 
 {% block title %}Литературный сборник — поэзия и проза Эллы Гогелиани{% endblock %}
 
-{% block description %}Коллекция прозы, поэзии и статей Эллы Гогелиани{% endblock %}
+{% block description %}Элла Гогелиани. Жила-была я… Избранные произведения. Коллекция прозы, поэзии и статей{% endblock %}
 
 {% block content %}
-<section class="pt-16 pb-16 md:pt-24 md:pb-20">
+<!-- Hero -->
+<section class="pt-16 pb-16 md:pt-20 md:pb-16">
     <div class="max-w-3xl mx-auto text-center">
-        <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-6 text-gray-900">Литературный сборник</h1>
+        <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-6 text-gray-900">Улица Комсомольская</h1>
         <p class="text-lg text-gray-600 font-merriweather max-w-2xl mx-auto mb-8">
-            Коллекция прозы, поэзии и статей Эллы Гогелиани. Глубокие мысли, эмоции и размышления,
+            «Жила-была я… Осколки чьей-то жизни».  Мысли, эмоции и размышления,
             переданные через силу слова.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="/poetry/" class="btn btn-primary px-6">Перейти к стихам</a>
             <a href="/prose/" class="btn btn-secondary px-6">Читать прозу</a>
         </div>
-        <p class="mt-6 text-sm text-gray-500">
-            В сборнике {{ poems_count }} стихотворений и {{ pieces_count }} произведений прозы.
-        </p>
     </div>
 </section>
 
-<section class="bg-white py-16 pb-24 md:py-24 md:pb-32">
+<!-- Книга «Жила-была я…» -->
+<section class="pb-16 md:pb-20">
     <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-merriweather font-bold text-gray-900 mb-6 text-center">О сборнике</h2>
-        <p class="text-base text-gray-600 font-merriweather leading-relaxed mb-6">
-            Этот проект представляет собой подборку литературных произведений, созданных
-            поэтессой и прозаиком Эллой Гогелиани. Здесь собраны тексты разных лет и жанров:
-            лирика, посвящения, философские размышления, рассказы и эссе.
-        </p>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-            <li>Произведения охватывают разные годы и жанры</li>
-            <li>Все тексты хранят авторский стиль и глубину</li>
-            <li>Доступно для чтения на любых устройствах</li>
-        </ul>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 md:p-6 mb-6 text-center">
+            <p class="text-xs uppercase tracking-widest text-amber-800 mb-1">Элла Гогелиани</p>
+            <h2 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 leading-snug">Жила-была я…</h2>
+            <p class="mt-1 text-sm md:text-base text-gray-700 font-merriweather italic">Избранные произведения</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-8 md:p-10 shadow-sm literary-text">
+            <p>
+                В файле собраны произведения Эллы Гогелиани — журналиста, писателя и поэта,
+                чья жизнь соединила Таджикистан и Урал. Это не единый роман, а сборник разных жанров:
+                автобиографическая повесть, рассказы, житейские истории, эссе, публицистические заметки,
+                стихи и посвящения.
+            </p>
+            <p>
+                Центральное место занимает автобиографическая проза о детстве и юности в послевоенном
+                Душанбе: улица Комсомольская, восточный базар, горячие лепёшки из тандыра, бабушка
+                Марьямгюль, школа, первые увлечения, университет, работа на республиканском телевидении,
+                командировки на Памир и Нурекскую ГЭС. Отдельные страницы посвящены семье, матери, отцу,
+                сыну, переезду и жизни в Магнитогорске, а также поездке на Байконур.
+            </p>
+            <p>
+                В рассказах и очерках автор обращается к темам любви и одиночества, дружбы и предательства,
+                памяти и утраты, профессионального становления и человеческого достоинства. Публицистика
+                затрагивает вопросы сохранения русского языка, культуры речи и отношения к «особым» детям.
+                Поэтический раздел включает стихи разных лет — о любви, возрасте, родных местах, друзьях
+                и коллегах, о времени и памяти.
+            </p>
+            <p>
+                Произведения Эллы Гогелиани отличаются искренностью, живой наблюдательностью, вниманием
+                к деталям быта и мягким юмором. Сборник будет интересен любителям мемуарной и документальной
+                прозы, ценителям поэзии, а также всем, кто интересуется историей повседневности, культурой
+                Таджикистана и Урала и судьбами людей на сломе эпох.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Разделы сборника -->
+<section class="bg-white py-16 pb-20">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-merriweather font-bold text-gray-900 mb-8 text-center">Разделы сборника</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a href="/poetry/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Поэзия</h3>
+                    <p class="text-sm text-gray-600">
+                        {{ poems_count }} {{ ru_plural(poems_count, 'стихотворение', 'стихотворения', 'стихотворений') }} — лирика, посвящения, стихи разных лет.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+            <a href="/prose/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Проза</h3>
+                    <p class="text-sm text-gray-600">
+                        {{ pieces_count }} {{ ru_plural(pieces_count, 'произведение', 'произведения', 'произведений') }} — автобиографическая повесть, рассказы, эссе.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+            <a href="/gallery/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Галерея</h3>
+                    <p class="text-sm text-gray-600">
+                        Иллюстрации и визуальные образы произведений.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+        </div>
     </div>
 </section>
 {% endblock %}

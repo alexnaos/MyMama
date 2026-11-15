@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Элла Гогелиани. Жила-была я… Избранные произведения. Коллекция прозы, поэзии и статей">
+    <title>Литературный сборник — поэзия и проза Эллы Гогелиани</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #2d3748; -webkit-font-smoothing: antialiased; }
+        .font-merriweather { font-family: 'Merriweather', serif; }
+        a { color: #2d3748; text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #c53030; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+        .card { background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); transition: all 0.2s; }
+        .card:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; cursor: pointer; }
+        .btn-primary { background: #c53030; color: white; }
+        .btn-primary:hover { background: #e53e3e; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.1); color: white; }
+        .btn-secondary { background: transparent; color: #2d3748; border: 2px solid #2d3748; }
+        .btn-secondary:hover { background: #2d3748; color: white; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        h1 { font-size: 2.25rem; line-height: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        h2 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .text-muted { color: #718096 !important; }
+        .content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 1rem; }
+        /* Типографика художественных текстов */
+        .literary-text { font-size: 1.0625rem; line-height: 1.9; color: #2d3748; }
+        .literary-text p { margin: 0 0 1rem; }
+        .literary-text h1, .literary-text h2, .literary-text h3 { margin-top: 1.5rem; }
+        .literary-text blockquote { border-left: 3px solid #c53030; padding-left: 1rem; color: #4a5568; margin: 1rem 0; }
+        .literary-text img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        @media (min-width: 640px) { .container { padding: 0 1.5rem; } }
+        @media (min-width: 768px) {
+            h1 { font-size: 3rem; line-height: 3.75rem; }
+            h2 { font-size: 2.25rem; line-height: 2.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-50" style="background: white !important;">
+    <div class="container max-w-7xl flex items-center justify-between h-16 gap-4">
+        <a href="/" class="flex items-center gap-2 flex-shrink-0">
+            <svg class="h-8 w-8 text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span class="font-merriweather text-xl font-bold text-gray-900 hidden sm:inline">Литературный сборник</span>
+        </a>
+        <ul class="hidden md:flex items-center gap-4 lg:gap-6">
+            <li><a href="/" class="text-red-700 font-medium transition-colors">Главная</a></li>
+            <li><a href="/poetry/" class="text-gray-600 hover:text-red-700 transition-colors">Поэзия</a></li>
+            <li><a href="/prose/" class="text-gray-600 hover:text-red-700 transition-colors">Проза</a></li>
+            <li><a href="/gallery/" class="text-gray-600 hover:text-red-700 transition-colors">Галерея</a></li>
+            <li><a href="/contact/" class="text-gray-600 hover:text-red-700 transition-colors">Контакты</a></li>
+        </ul>
+        <form action="/search/" method="get" class="relative flex-shrink w-full max-w-xs">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="search" name="q" value=""
+                   placeholder="Поиск по сборнику..." aria-label="Поиск по сборнику"
+                   class="pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 w-full">
+        </form>
+    </div>
+</nav>
+
+<main class="flex-1 w-full">
+    <div class="content-wrapper py-8 md:py-12">
+        
+<!-- Hero -->
+<section class="pt-16 pb-16 md:pt-20 md:pb-16">
+    <div class="max-w-3xl mx-auto text-center">
+        <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-6 text-gray-900">Литературный сборник</h1>
+        <p class="text-lg text-gray-600 font-merriweather max-w-2xl mx-auto mb-8">
+            Коллекция прозы, поэзии и статей Эллы Гогелиани. Глубокие мысли, эмоции и размышления,
+            переданные через силу слова.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/poetry/" class="btn btn-primary px-6">Перейти к стихам</a>
+            <a href="/prose/" class="btn btn-secondary px-6">Читать прозу</a>
+        </div>
+    </div>
+</section>
+
+<!-- Книга «Жила-была я…» -->
+<section class="pb-16 md:pb-20">
+    <div class="max-w-3xl mx-auto">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 md:p-6 mb-6 text-center">
+            <p class="text-xs uppercase tracking-widest text-amber-800 mb-1">Элла Гогелиани</p>
+            <h2 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 leading-snug">Жила-была я…</h2>
+            <p class="mt-1 text-sm md:text-base text-gray-700 font-merriweather italic">Избранные произведения</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-8 md:p-10 shadow-sm literary-text">
+            <p>
+                В файле собраны произведения Эллы Гогелиани — журналиста, писателя и поэта,
+                чья жизнь соединила Таджикистан и Урал. Это не единый роман, а сборник разных жанров:
+                автобиографическая повесть, рассказы, житейские истории, эссе, публицистические заметки,
+                стихи и посвящения.
+            </p>
+            <p>
+                Центральное место занимает автобиографическая проза о детстве и юности в послевоенном
+                Душанбе: улица Комсомольская, восточный базар, горячие лепёшки из тандыра, бабушка
+                Марьямгюль, школа, первые увлечения, университет, работа на республиканском телевидении,
+                командировки на Памир и Нурекскую ГЭС. Отдельные страницы посвящены семье, матери, отцу,
+                сыну, переезду и жизни в Магнитогорске, а также поездке на Байконур.
+            </p>
+            <p>
+                В рассказах и очерках автор обращается к темам любви и одиночества, дружбы и предательства,
+                памяти и утраты, профессионального становления и человеческого достоинства. Публицистика
+                затрагивает вопросы сохранения русского языка, культуры речи и отношения к «особым» детям.
+                Поэтический раздел включает стихи разных лет — о любви, возрасте, родных местах, друзьях
+                и коллегах, о времени и памяти.
+            </p>
+            <p>
+                Произведения Эллы Гогелиани отличаются искренностью, живой наблюдательностью, вниманием
+                к деталям быта и мягким юмором. Сборник будет интересен любителям мемуарной и документальной
+                прозы, ценителям поэзии, а также всем, кто интересуется историей повседневности, культурой
+                Таджикистана и Урала и судьбами людей на сломе эпох.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Разделы сборника -->
+<section class="bg-white py-16 pb-20">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-merriweather font-bold text-gray-900 mb-8 text-center">Разделы сборника</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a href="/poetry/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Поэзия</h3>
+                    <p class="text-sm text-gray-600">
+                        67 стихотворений — лирика, посвящения, стихи разных лет.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+            <a href="/prose/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Проза</h3>
+                    <p class="text-sm text-gray-600">
+                        53 произведения — автобиографическая повесть, рассказы, эссе.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+            <a href="/gallery/" class="card hover:shadow-lg transition-shadow flex flex-col justify-between">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Галерея</h3>
+                    <p class="text-sm text-gray-600">
+                        Иллюстрации и визуальные образы произведений.
+                    </p>
+                </div>
+                <span class="text-red-700 text-sm font-medium mt-4">Перейти →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+    </div>
+</main>
+
+<footer class="bg-gray-900 text-gray-300 py-8 mt-auto">
+    <div class="container flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+            <span class="font-merriweather text-xl font-bold text-white">Литературный сборник</span>
+            <p class="text-sm text-gray-400">Поэзия и проза Эллы Гогелиани · 2026</p>
+        </div>
+        <div class="flex items-center gap-6 text-sm text-gray-400">
+            <a href="/poetry/" class="hover:text-white transition-colors">Поэзия</a>
+            <a href="/prose/" class="hover:text-white transition-colors">Проза</a>
+            <a href="/contact/" class="hover:text-white transition-colors">Контакты</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

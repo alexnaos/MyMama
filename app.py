@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Литературный сборник — онлайн-архив поэзии и прозы Эллы Гогелиани.
 
@@ -12,23 +11,26 @@ md_output/поэзия и md_output/проза (включая вложенны�
 
 import os
 import re
+import time
 
-import yaml
 import markdown as mdlib
-from flask import Flask, render_template, request, abort
+import yaml
+from flask import Flask, abort, render_template, request
 from markupsafe import Markup
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MD_OUTPUT_DIR = os.path.join(BASE_DIR, 'md_output')
 POETRY_DIR = os.path.join(MD_OUTPUT_DIR, 'поэзия')
 PROSE_DIR = os.path.join(MD_OUTPUT_DIR, 'проза')
+ARTICLES_DIR = os.path.join(MD_OUTPUT_DIR, 'статьи')
 
 MARKDOWN_EXTENSIONS = ['extra', 'sane_lists', 'nl2br', 'tables', 'fenced_code']
 
-SECTION_NAMES = {'poetry': 'Поэзия', 'prose': 'Проза'}
+SECTION_NAMES = {'poetry': 'Поэзия', 'prose': 'Проза', 'articles': 'Статьи'}
 ROOT_GROUP_LABELS = {
     'poetry': 'Основные стихотворения',
     'prose': 'Основные произведения',
+    'articles': 'Статьи',
 }
 
 app = Flask(__name__)
@@ -45,6 +47,17 @@ app.config.update(
 def _cased(value):
     """Ключ для сортировки строк без учёта регистра (в т.ч. кириллицы)."""
     return str(value or '').casefold()
+
+
+def ru_plural(number, one, few, many):
+    """Русские формы множественного числа: 1 -> one, 2-4 -> few, 5+ -> many."""
+    n = abs(int(number))
+    n10, n100 = n % 10, n % 100
+    if n10 == 1 and n100 != 11:
+        return one
+    if 2 <= n10 <= 4 and not (12 <= n100 <= 14):
+        return few
+    return many
 
 
 def _strip_html(html):
@@ -188,7 +201,56 @@ def _load_collection(section_dir, section):
 
 POEMS = _load_collection(POETRY_DIR, 'poetry')
 PIECES = _load_collection(PROSE_DIR, 'prose')
-ALL_WORKS = POEMS + PIECES
+ARTICLES = _load_collection(ARTICLES_DIR, 'articles')
+ALL_WORKS = POEMS + PIECES + ARTICLES
+
+
+# --------------------------------------------------------------------------
+# Автообновление контента: новые/изменённые md-файлы подхватываются
+# при следующем запросе без перезапуска сервера.
+# --------------------------------------------------------------------------
+
+def _content_signature():
+    """Метка текущего состояния markdown-файлов (пути + время + размер)."""
+    parts = []
+    for base in (POETRY_DIR, PROSE_DIR, ARTICLES_DIR):
+        for dirpath, dirnames, filenames in os.walk(base):
+            dirnames.sort(key=_cased)
+            for filename in sorted(filenames, key=_cased):
+                if not filename.lower().endswith('.md'):
+                    continue
+                path = os.path.join(dirpath, filename)
+                try:
+                    stat = os.stat(path)
+                except OSError:
+                    continue
+                parts.append((path, stat.st_mtime_ns, stat.st_size))
+    return parts
+
+
+_RELOAD_STATE = {'parts': _content_signature(), 'checked_at': 0.0}
+
+
+def _reload_if_changed():
+    """Перезагружает коллекции, если markdown-файлы изменились."""
+    global POEMS, PIECES, ARTICLES, ALL_WORKS
+    now = time.time()
+    if now - _RELOAD_STATE['checked_at'] < 1.0:
+        return
+    _RELOAD_STATE['checked_at'] = now
+    current = _content_signature()
+    if _RELOAD_STATE['parts'] == current:
+        return
+    POEMS = _load_collection(POETRY_DIR, 'poetry')
+    PIECES = _load_collection(PROSE_DIR, 'prose')
+    ARTICLES = _load_collection(ARTICLES_DIR, 'articles')
+    ALL_WORKS = POEMS + PIECES + ARTICLES
+    _RELOAD_STATE['parts'] = current
+
+
+@app.before_request
+def _refresh_content():
+    _reload_if_changed()
 
 
 def _group_by_folder(items):
@@ -222,7 +284,9 @@ def _neighbors(collection, work):
 @app.context_processor
 def _template_helpers():
     """Функции, доступные во всех шаблонах."""
-    return {'work_excerpt': work_excerpt, 'work_body_html': work_body_html}
+    return {'work_excerpt': work_excerpt,
+            'work_body_html': work_body_html,
+            'ru_plural': ru_plural}
 # --------------------------------------------------------------------------
 # Маршруты сайта
 # --------------------------------------------------------------------------
@@ -230,8 +294,8 @@ def _template_helpers():
 @app.route('/')
 def index():
     """Главная страница."""
-    return render_template('index.html', active='', title='Литературный сборник',
-                           description='Коллекция прозы, поэзии и статей Эллы Гогелиани',
+    return render_template('index.html', active='', title='Элла',
+                           description='Осколки чьей-то жизни',
                            poems_count=len(POEMS), pieces_count=len(PIECES))
 
 
@@ -249,6 +313,14 @@ def prose():
     return render_template('prose.html', active='prose', title='Проза',
                            description='Прозаические произведения Эллы Гогелиани',
                            groups=_group_by_folder(PIECES), total=len(PIECES))
+
+
+@app.route('/pieces/')
+def articles():
+    """Страница со статьями."""
+    return render_template('articles.html', active='articles', title='Статьи',
+                           description='Статьи и публицистические заметки',
+                           groups=_group_by_folder(ARTICLES), total=len(ARTICLES))
 
 
 @app.route('/poem/<int:work_id>/')
@@ -279,6 +351,20 @@ def piece_detail(work_id):
                            total=len(PIECES))
 
 
+@app.route('/article/<int:work_id>/')
+def article_detail(work_id):
+    """Детальная страница статьи."""
+    work = _find_item(ARTICLES, work_id)
+    if work is None:
+        abort(404)
+    previous, following = _neighbors(ARTICLES, work)
+    return render_template('work_detail.html', active='articles', title=work['title'],
+                           work=work, body_html=Markup(work_body_html(work)),
+                           section_name='Статьи', list_url='/pieces/', back_text='Ко всем статьям',
+                           detail_prefix='/article/', previous=previous, following=following,
+                           total=len(ARTICLES))
+
+
 @app.route('/search/')
 def search():
     """Поиск по сборнику."""
@@ -292,14 +378,6 @@ def search():
                            description='Поиск по литературному сборнику',
                            query=query, poems=poem_hits, pieces=piece_hits,
                            total=len(poem_hits) + len(piece_hits))
-
-
-@app.route('/about/')
-def about():
-    """Страница «О сборнике»."""
-    return render_template('about.html', active='about', title='О сборнике',
-                           description='Информация о литературном сборнике',
-                           poems_count=len(POEMS), pieces_count=len(PIECES))
 
 
 @app.route('/contact/', methods=['GET', 'POST'])
@@ -331,4 +409,38 @@ def internal_error(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    import os
+    import socket
+    import sys
+    import threading
+    import webbrowser
+
+    host = '0.0.0.0'
+    port = 5000
+    if '--port' in sys.argv:
+        port = int(sys.argv[sys.argv.index('--port') + 1])
+
+    # Порт 5000 может быть занят (например, зависшим процессом) —
+    # автоматически подбираем ближайший свободный порт.
+    chosen = port
+    is_reloader_child = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
+    if not is_reloader_child:
+        for candidate in range(port, port + 20):
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            try:
+                sock.bind((host, candidate))
+                sock.close()
+                chosen = candidate
+                break
+            except OSError:
+                sock.close()
+        url = f'http://{host}:{chosen}/'
+        print('=' * 60)
+        print('  Элла')
+        print(f'  Откройте в браузере: {url}')
+        print('  Остановка: Ctrl+C')
+        print('=' * 60)
+        if '--no-browser' not in sys.argv:
+            threading.Timer(1.5, lambda: webbrowser.open(url)).start()
+
+    app.run(debug=True, host=host, port=chosen)
