@@ -94,6 +94,23 @@ def _as_list(value):
     return [str(value)]
 
 
+def _get_cover_url(cover_val):
+    """Превращает цифру или имя файла из поля cover в правильный URL."""
+    cover_val = str(cover_val or '').strip().strip("'\"")
+    if not cover_val:
+        return ''
+    
+    # Если написана просто цифра (например, '3')
+    if cover_val.isdigit():
+        return f"/static/images/covers/Image{cover_val}.jpg"
+    
+    # Если написано имя файла (например, 'Image3.jpg')
+    elif not cover_val.startswith('/') and not cover_val.startswith('http'):
+        return f"/static/images/covers/{cover_val}"
+        
+    return cover_val
+
+
 FRONTMATTER_RE = re.compile(
     r'\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*\r?\n?(.*)\Z',
     re.DOTALL,
@@ -131,6 +148,8 @@ def _build_work(path, section, folder, folder_label, raw_body, meta):
         'created': _as_text(meta.get('created')),
         'description': _as_text(meta.get('description')),
         'tags': _as_list(meta.get('tags')),
+        'cover': _get_cover_url(meta.get('cover')), # НОВОЕ
+        'publish': str(meta.get('publish', 'true')).lower() != 'false', # НОВОЕ
         'folder': folder,
         'folder_label': folder_label,
         'path': path,
@@ -186,6 +205,11 @@ def _load_collection(section_dir, section):
             except (OSError, UnicodeDecodeError):
                 continue
             meta, body = _split_frontmatter(raw)
+            
+            # НОВОЕ: Проверяем поле publish. Если false - пропускаем файл.
+            if str(meta.get('publish', 'true')).lower() in ('false', '0', 'no'):
+                continue
+                
             relative_dir = os.path.relpath(dirpath, section_dir)
             if relative_dir == '.':
                 folder, folder_label = '', ROOT_GROUP_LABELS[section]
