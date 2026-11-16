@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% block description %}Литературный сборник: поэзия и проза Эллы Гогелиани{% endblock %}">
-    <title>{% block title %}Элла{% endblock %}</title>
+    <title>{% block title %}Элла Гогелиани{% endblock %}</title>
 
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='css/favicon.ico') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='css/favicon.ico') }}">
@@ -54,8 +54,8 @@
     <div class="container max-w-7xl flex items-center justify-between h-16 gap-4">
         <a href="/" class="flex items-center gap-2 flex-shrink-0">
             <img src="{{ url_for('static', filename='images/logo.svg') }}"
-                 alt="Элла" class="h-8 w-8 rounded-lg">
-            <span class="font-merriweather text-xl font-bold text-gray-900 hidden sm:inline">Элла</span>
+                 alt="Элла Гогелиани" class="h-8 w-8 rounded-lg">
+            <span class="font-merriweather text-xl font-bold text-gray-900 hidden sm:inline">Элла Гогелиани</span>
         </a>
 <ul class="hidden md:flex items-center gap-4 lg:gap-6">
             <li><a href="/poetry/" class="{{ 'text-blue-700 font-medium' if active == 'poetry' else 'text-gray-600 hover:text-blue-700' }} transition-colors">Поэзия</a></li>
@@ -75,7 +75,7 @@
 </nav>
 
 <main class="flex-1 w-full">
-    <div class="content-wrapper py-8 md:py-12">
+    <div class="content-wrapper py-4 md:py-6">
         {% block content %}{% endblock %}
     </div>
 </main>
@@ -84,7 +84,7 @@
     <div class="container">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
-                <span class="font-merriweather text-xl font-bold text-white">Элла</span>
+                <span class="font-merriweather text-xl font-bold text-white">Элла Гогелиани</span>
                 <p class="text-sm text-gray-400">Поэзия и проза Эллы Гогелиани · 2026</p>
             </div>
             <div class="flex items-center gap-6 text-sm text-gray-400">
