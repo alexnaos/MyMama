@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto text-center mb-10">
-    <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-4 text-gray-900">Поэзия</h1>
+    <h1 class="font-merriweather text-3xl md:text-4xl font-bold mb-4 text-gray-900">Поэзия</h1>
     <p class="text-lg text-gray-600">
         Стихотворения, наполненные эмоциями, мудростью и красотой слова.
     </p>
@@ -15,35 +15,42 @@
 
 {% for folder_label, works in groups %}
 <div class="mb-10">
-    <h2 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ folder_label }}</h2>
+    <h2 class="font-merriweather text-lg md:text-xl font-bold text-gray-900 mb-4">{{ folder_label }}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for poem in works %}
         <!-- Карточка с фоновым изображением -->
-        <article class="relative h-80 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end
-                        {% if poem.cover %}bg-cover bg-center{% else %}bg-gray-800{% endif %}"
+        <article class="relative h-96 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col
+                        {% if poem.cover %}bg-cover bg-center{% else %}bg-gray-200{% endif %}"
                  {% if poem.cover %}style="background-image: url('{{ poem.cover }}');"{% endif %}>
-            
-            <!-- Затемняющий градиент для читаемости текста -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10"></div>
+
+            <!-- Светлое затемнение: тёмный текст читается поверх любого фонового снимка -->
+            <div class="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-white/20"></div>
 
             <!-- Контент поверх фона -->
-            <div class="relative z-10 p-5 text-white flex flex-col h-full">
-                
-                <div class="flex items-start gap-3 mb-2 mt-auto">
-                    <div class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-medium text-xs">{{ poem.id }}</span>
+            <div class="relative z-10 p-5 flex flex-col h-full text-gray-900">
+
+                <!-- Шапка: номер + заголовок + автор. Без mt-auto — прижата к верхнему краю -->
+                <div class="flex items-start gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 flex items-center justify-center flex-shrink-0">
+                        <span class="font-medium text-sm">{{ poem.id }}</span>
                     </div>
-                    <div class="flex-1">
-                        <h3 class="font-semibold text-lg leading-tight line-clamp-2 drop-shadow-md">{{ poem.title }}</h3>
-                        <p class="text-xs text-gray-200 mt-1">{{ poem.author }}</p>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-lg leading-tight line-clamp-2">{{ poem.title }}</h3>
+                        <p class="text-sm text-gray-600 mt-1">{{ poem.author }}</p>
                     </div>
                 </div>
-                
-                <p class="text-xs text-gray-300 line-clamp-3 mt-2 mb-3">{{ work_excerpt(poem) }}</p>
-                
-                <a href="/poem/{{ poem.id }}/" class="text-white font-medium text-sm inline-flex items-center gap-1 hover:text-blue-300 transition-colors">
-                    Читать <span aria-hidden="true">&rarr;</span>
-                </a>
+
+                <!-- Выжимка сразу под автором: text-base (~1rem), объём увеличен вдвое (line-clamp-6) -->
+                <p class="text-base leading-relaxed text-gray-800 line-clamp-6">{{ work_excerpt(poem) }}</p>
+
+                <!-- Кнопка липнет к нижнему краю через mt-auto: все кнопки в ряду на одном уровне -->
+                <div class="mt-auto pt-3">
+                    {% if not work_is_short(poem, 200) %}
+                    <a href="/poem/{{ poem.id }}/" class="text-gray-900 font-medium text-sm inline-flex items-center gap-1 hover:text-blue-700 transition-colors">
+                        Читать <span aria-hidden="true">&rarr;</span>
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </article>
         {% endfor %}

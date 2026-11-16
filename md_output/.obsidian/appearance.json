@@ -1,3 +1,6 @@
 {
-  "showRibbon": false
+  "showRibbon": false,
+  "cssTheme": "AnuPpuccin",
+  "baseFontSizeAction": true,
+  "accentColor": "#41277c"
 }

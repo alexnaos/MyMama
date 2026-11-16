@@ -72,9 +72,34 @@ def _strip_html(html):
     return re.sub(r'\s+', ' ', text).strip()
 
 
-def _excerpt_source(text, limit=240):
-    """Краткая выжимка чистого текста."""
-    clean = _strip_html(text)
+# Obsidian/Markdown-ссылки, которые нужно вырезать из «плоского» текста.
+# Порядок обработки важен: сначала картинки, потом вики-ссылки.
+_MD_IMAGE_RE = re.compile(r'!\[([^\]]*)\]\(([^)\n]+)\)')       # ![альт](путь)
+_OBSIDIAN_IMAGE_RE = re.compile(r'!\[\[([^\]]+)\]\]')          # ![[путь к картинке]]
+_OBSIDIAN_WIKILINK_RE = re.compile(r'\[\[([^\]|]+)(?:\|([^\]]+))?\]\]')  # [[Название|подпись]]
+
+
+def _wikilink_repl(match):
+    """Из [[Название]] или [[Название|подпись]] оставляет читаемый текст."""
+    return (match.group(2) or match.group(1)).strip()
+
+
+def _clean_plain_text(text):
+    """Плоский текст без HTML-тегов и без Markdown/Obsidian-ссылок.
+
+    Перед выжимкой удаляются ссылки на картинки (![[…]] и ![…](…)) и
+    внутренние вики-ссылки [[…]], иначе в карточке остаётся сырой текст
+    вида «static/images/content/Pasted image …».
+    """
+    text = _OBSIDIAN_IMAGE_RE.sub('', text)
+    text = _MD_IMAGE_RE.sub('', text)
+    text = _OBSIDIAN_WIKILINK_RE.sub(_wikilink_repl, text)
+    return _strip_html(text)
+
+
+def _excerpt_source(text, limit=480):
+    """Краткая выжимка чистого текста (ссылки на картинки вычищены)."""
+    clean = _clean_plain_text(text)
     if len(clean) <= limit:
         return clean
     cut = clean[:limit].rfind(' ')
@@ -191,7 +216,8 @@ def _build_work(path, section, folder, folder_label, raw_body, meta):
         'path': path,
         'raw_body': raw_body,
         '_html_cache': None,
-        '_excerpt_cache': None,
+        '_excerpt_cache': {},
+        '_plain_cache': None,
         '_search_cache': None,
     }
 
@@ -270,19 +296,44 @@ def work_body_html(work):
     return work['_html_cache']
 
 
-def work_excerpt(work, limit=240):
-    """Краткая выжимка текста для карточки произведения."""
-    if work['_excerpt_cache'] is None:
+def work_plain_text(work):
+    """Полный «плоский» текст произведения (из описания или тела файла).
+
+    Разметка и ссылки на картинки удалены, поэтому len(work_plain_text(work))
+    — это реальная длина текста, который читает пользователь.
+    """
+    if work['_plain_cache'] is None:
         source = work['description'] or work['raw_body']
-        work['_excerpt_cache'] = _excerpt_source(source, limit)
-    return work['_excerpt_cache']
+        work['_plain_cache'] = _clean_plain_text(source)
+    return work['_plain_cache']
+
+def work_excerpt(work, limit=480):
+    """Краткая выжимка текста для карточки произведения.
+
+    Короткий текст возвращается целиком, длинный — срезом по слову
+    с многоточием. Кэш разбит по limit, чтобы разные шаблоны (240 и 180)
+    не перезаписывали друг друга.
+    """
+    cache = work['_excerpt_cache']
+    if cache.get(limit) is None:
+        cache[limit] = _excerpt_source(work_plain_text(work), limit)
+    return cache[limit]
+
+
+def work_is_short(work, threshold=200):
+    """True, если текст произведения короткий (не больше threshold символов).
+
+    Используется в шаблонах карточек: короткий текст показываем целиком,
+    а кнопку «Читать» — только для длинных произведений.
+    """
+    return len(work_plain_text(work)) <= threshold
 
 
 def work_search_text(work):
     """Нормализованный текст для поиска по сборнику."""
     if work['_search_cache'] is None:
         parts = [work['title'], work['author'], work['description'],
-                 _strip_html(work['raw_body'])]
+                 _clean_plain_text(work['raw_body'])]
         work['_search_cache'] = ' '.join(parts).casefold()
     return work['_search_cache']
 
@@ -407,6 +458,8 @@ def _template_helpers():
     """Функции и данные, доступные во всех шаблонах."""
     return {'work_excerpt': work_excerpt,
             'work_body_html': work_body_html,
+            'work_plain_text': work_plain_text,
+            'work_is_short': work_is_short,
             'ru_plural': ru_plural,
             'social_links': load_social_links()}
 # --------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="text-center mb-10">
-        <h1 class="font-merriweather text-4xl font-bold mb-4 text-gray-900">Поиск по сборнику</h1>
+        <h1 class="font-merriweather text-3xl font-bold mb-4 text-gray-900">Поиск по сборнику</h1>
         {% if query %}
         <p class="text-lg text-gray-600">Результаты по запросу: <span class="font-semibold text-gray-900">{{ query }}</span></p>
         <p class="text-sm text-gray-500 mt-1">Найдено: {{ total }}</p>
@@ -26,14 +26,16 @@
 
     {% if poems %}
     <div class="mb-10">
-        <h2 class="font-merriweather text-2xl font-bold text-gray-900 mb-4">Поэзия ({{ poems|length }})</h2>
+        <h2 class="font-merriweather text-xl font-bold text-gray-900 mb-4">Поэзия ({{ poems|length }})</h2>
         <div class="space-y-4">
             {% for poem in poems %}
             <article class="card">
                 <h3 class="font-semibold text-gray-900">{{ poem.title }}</h3>
                 <p class="text-sm text-gray-500">{{ poem.author }}</p>
-                <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(poem, 180) }}</p>
+                <p class="text-base text-gray-600 leading-relaxed mt-2">{{ work_excerpt(poem, 360) }}</p>
+                {% if not work_is_short(poem, 180) %}
                 <a href="/poem/{{ poem.id }}/" class="text-blue-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+                {% endif %}
             </article>
             {% endfor %}
         </div>
@@ -42,14 +44,16 @@
 
     {% if pieces %}
     <div class="mb-10">
-        <h2 class="font-merriweather text-2xl font-bold text-gray-900 mb-4">Проза ({{ pieces|length }})</h2>
+        <h2 class="font-merriweather text-xl font-bold text-gray-900 mb-4">Проза ({{ pieces|length }})</h2>
         <div class="space-y-4">
             {% for piece in pieces %}
             <article class="card">
                 <h3 class="font-semibold text-gray-900">{{ piece.title }}</h3>
                 <p class="text-sm text-gray-500">{{ piece.author }}</p>
-                <p class="text-sm text-gray-600 mt-2">{{ work_excerpt(piece, 180) }}</p>
+                <p class="text-base text-gray-600 leading-relaxed mt-2">{{ work_excerpt(piece, 360) }}</p>
+                {% if not work_is_short(piece, 180) %}
                 <a href="/piece/{{ piece.id }}/" class="text-blue-700 text-sm font-medium mt-2 inline-block">Читать →</a>
+                {% endif %}
             </article>
             {% endfor %}
         </div>

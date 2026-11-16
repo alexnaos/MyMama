@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto text-center mb-10">
-    <h1 class="font-merriweather text-4xl md:text-5xl font-bold mb-4 text-gray-900">Статьи</h1>
+    <h1 class="font-merriweather text-3xl md:text-4xl font-bold mb-4 text-gray-900">Статьи</h1>
     <p class="text-lg text-gray-600">
         Статьи и публицистические заметки.
     </p>
@@ -22,7 +22,7 @@
 {% else %}
 {% for folder_label, works in groups %}
 <div class="mb-10">
-    <h2 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 mb-4">{{ folder_label }}</h2>
+    <h2 class="font-merriweather text-lg md:text-xl font-bold text-gray-900 mb-4">{{ folder_label }}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for article in works %}
         <article class="card hover:shadow-lg transition-shadow flex flex-col">
@@ -36,8 +36,10 @@
                     {% if article.date %}<p class="text-xs text-gray-400 mt-1">{{ article.date }}</p>{% endif %}
                 </div>
             </div>
-            <p class="text-sm text-gray-600 line-clamp-3 flex-1">{{ work_excerpt(article) }}</p>
+            <p class="text-base text-gray-700 leading-relaxed line-clamp-6 flex-1">{{ work_excerpt(article) }}</p>
+            {% if not work_is_short(article, 200) %}
             <a href="/article/{{ article.id }}/" class="text-blue-700 text-sm font-medium mt-3 block">Читать полностью →</a>
+            {% endif %}
         </article>
         {% endfor %}
     </div>

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "проза/Мальчишник.md",
+                "file": "поэзия/Время Любить/Мир Дому Твоему/Мир Дому Твоему.md",
                 "mode": "preview",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "Мальчишник"
+              "title": "Мир Дому Твоему"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "снег засыпал",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -83,7 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 359.5
   },
   "right": {
     "id": "965390cb1a892b8f",
@@ -185,51 +185,52 @@
       "daily-notes:Сегодняшняя заметка": false,
       "templates:Вставить шаблон": false,
       "command-palette:Открыть палитру команд": false,
-      "bases:Создать новую базу": false
+      "bases:Создать новую базу": false,
+      "publish:Публикация изменений": false
     }
   },
   "active": "0ef61474aa5abe08",
   "lastOpenFiles": [
-    "проза/Кот.md",
-    "проза/Казусы И Ляпы.md",
-    "проза/Житейские Истории.md",
-    "проза/Загадка Стекла.md",
     "проза/Жила Была Я.md",
     "проза/Дети Моих Детей.md",
     "проза/Выхухоль.md",
     "проза/Вино Хмельное Жизнь.md",
-    "проза/В Плену Дремот.md",
     "проза/В Поисках Макондо.md",
+    "проза/В Плену Дремот.md",
+    "статьи/Приехала И Пригодилась.md",
+    "статьи/Мы На Ём Разговариваем.md",
+    "статьи/Всё Не Так Просто.md",
+    "статьи/В Поисках Города Макондо.md",
+    "проза/Загадка Стекла.md",
     "проза/Век Мой, Зверь Мой.md",
-    "проза/Мальчишник.md",
-    "проза/Наваждение.md",
-    "проза/Не Было Бы Счастья.md",
-    "проза/Несорванный Цветок.md",
-    "проза/Очищение Души.md",
-    "проза/Осколки Чьей То Жизни.md",
+    "поэзия/Имя Твое.md",
+    "поэзия/Жить По.md",
+    "поэзия/21 21.md",
+    "поэзия/Мы Вашей Судьбы Продолженье.md",
+    "поэзия/Любимый.md",
+    "поэзия/Осенняя Элегия.md",
+    "поэзия/К Женщине.md",
+    "поэзия/Ко Дню Рождения.md",
+    "поэзия/Кое Что О Белых Пятнах.md",
+    "поэзия/Новогодний Город.md",
+    "поэзия/Поэтическая Дорожка.md",
+    "поэзия/Послание Лиле.md",
+    "поэзия/Посвящения.md",
+    "поэзия/Посвящение Л.md",
+    "static/images/content/Pasted image 20261116162108.png",
+    "static/images/content/Pasted image 20261116152315.png",
+    "static/images/content/Pasted image 20261116143339.png",
+    "static/images/content/Pasted image 20261116142237.png",
+    "static/images/content/Pasted image 20261116142015.png",
     "static/images/content/Pasted image 20261115191233.png",
     "static/images/content/Pasted image 20261115191153.png",
-    "поэзия/Любимый.md",
     "static/images/content/images.jfif",
     "static/images/content/Не подтвержден 652850.crdownload",
-    "поэзия/Ко Дню Рождения.md",
-    "поэзия/К Женщине.md",
-    "поэзия/Жить По.md",
-    "поэзия/Для Любимой.md",
-    "проза/Изречения.md",
-    "поэзия/Всему Живому Поклон.md",
-    "поэзия/Всё Для Вас И О Вас.md",
-    "поэзия/Время.md",
     "normalize_names.py",
     "static/images/content/Pasted image 20261115184323.png",
     "static/images/content/Pasted image 20261115183608.png",
     "static/images/content/Pasted image 20261115183313.png",
-    "static/images/content/Pasted image 20261115182912.png",
-    "static/images/content/kling_20261115_IMAGE____________5800_0.png",
-    "static/images/content/Pasted image 20261115182109.png",
     "check_images.py",
-    "static/images/content/Pasted image 20261115173450.png",
-    "static/images/content/Pasted image 2026111517345.png",
     "static/images/content/Не подтвержден 928321.crdownload",
     "static/images/content/Не подтвержден 371743.crdownload",
     "static/images/content",
