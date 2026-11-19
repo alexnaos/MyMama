@@ -10,8 +10,10 @@ description: ''
 tags:
 - clippings
 publish: true
-cover: '3'
+cover: '56'
 ---
+![SOimage56](static/images/content/SOimage56.jpg)
+
 <div style="text-align: center;">C МАГНИТКОЙ  В СЕРДЦЕ        56</div>
 
 <p style="text-indent: 2em;">То в дыму, то в зарницах,</p>
@@ -307,3 +309,4 @@ cover: '3'
 <p style="text-indent: 2em;">ВСЕМ ДОБРА,</p>
 
 <p style="text-indent: 2em;">ДО НОВЫХ ВСТРЕЧ!</p>
+
