@@ -2,6 +2,93 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <script>
+        function copyWorkUrl(url, btn) {
+            console.log('copyWorkUrl called:', url);
+            if (btn) {
+                btn.innerText = 'Поделиться...';
+            }
+            
+            // Проверяем, можем ли мы реально использовать Web Share API
+            // - Требует HTTPS в production
+            // - На localhost часто не работает даже с HTTPS
+            // - На мобильных работает лучше
+            var userAgent = navigator.userAgent.toLowerCase();
+            var isMobile = /mobile|android|iphone|ipad|ipod/.test(userAgent);
+            var isSafari = /safari/.test(userAgent) && !/chrome/.test(userAgent);
+            
+            // Проверяем домен - если это production домен с HTTPS, используем Web Share
+            var isProductionDomain = window.location.hostname.includes('sloboda43.netcraze.pro');
+            var isHTTPS = window.location.protocol === 'https:';
+            
+            // Web Share API доступен если:
+            // 1. На production домене с HTTPS
+            // 2. На мобильных устройствах (даже с HTTP)
+            // 3. В Safari (лучше поддерживает)
+            var canUseShare = navigator.share && 
+                             ((isProductionDomain && isHTTPS) ||
+                              isMobile ||
+                              isSafari);
+            
+            if (canUseShare) {
+                console.log('Trying Web Share API');
+                navigator.share({
+                    title: document.title,
+                    text: 'Посмотрите это произведение',
+                    url: url
+                }).then(function() {
+                    console.log('Shared successfully');
+                    if (btn) {
+                        btn.innerText = '✓ Поделились';
+                        setTimeout(function() { btn.innerText = '🔗 Поделиться'; }, 2000);
+                    }
+                }).catch(function(err) {
+                    console.log('Web Share API failed:', err.name || err);
+                    copyToClipboardFallback(url, btn);
+                });
+            } else {
+                console.log('Skipping Web Share API (likely HTTP/localhost)');
+                copyToClipboardFallback(url, btn);
+            }
+        }
+
+        function copyToClipboardFallback(url, btn) {
+            console.log('Using clipboard fallback');
+            if (btn) {
+                btn.innerText = 'Копирую...';
+            }
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(function() {
+                        console.log('Copied to clipboard');
+                        if (btn) {
+                            btn.innerText = 'Скопировано ✓';
+                            setTimeout(function() { btn.innerText = '🔗 Поделиться'; }, 2000);
+                        }
+                    }).catch(function(err) {
+                        console.error('Clipboard error:', err);
+                        promptFallback(url, btn);
+                    });
+                } else {
+                    console.log('Clipboard API not available');
+                    promptFallback(url, btn);
+                }
+            } catch (e) {
+                console.error('Exception in fallback:', e);
+                promptFallback(url, btn);
+            }
+        }
+
+        function promptFallback(url, btn) {
+            console.log('Using prompt fallback');
+            window.prompt('Скопируйте ссылку:', url);
+            if (btn) {
+                btn.innerText = 'Скопировано?';
+                setTimeout(function() { btn.innerText = '🔗 Поделиться'; }, 2000);
+            }
+        }
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% block description %}Литературный сборник: поэзия и проза Эллы Гогелиани{% endblock %}">
     <title>{% block title %}Элла Гогелиани{% endblock %}</title>

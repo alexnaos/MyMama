@@ -39,3 +39,4 @@ proxycheck.txt
 # Если хотите игнорировать только автоматически созданные картинки из Obsidian:
 # md_output/static/images
 # static/images
+nul

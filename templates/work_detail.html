@@ -10,25 +10,7 @@
         <a href="{{ list_url }}" class="text-blue-700 text-sm font-medium">← {{ back_text }}</a>
     </p>
 
-    <div class="text-center mb-8">
-        <p class="text-sm text-gray-400 uppercase tracking-wide mb-2">{{ section_name }}</p>
-        <h1 class="font-merriweather text-2xl md:text-3xl font-bold mb-3 text-gray-900">{{ work.title }}</h1>
-        <p class="text-lg text-gray-500">Автор: {{ work.author }}</p>
-        {% if work.date %}<p class="text-sm text-gray-400 mt-1">{{ work.date }}</p>{% endif %}
-        {% if work.tags %}
-        <div class="flex justify-center flex-wrap gap-2 mt-4">
-            {% for tag in work.tags %}
-            <span class="text-xs bg-gray-100 text-gray-600 rounded-full px-3 py-1">{{ tag }}</span>
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
-
-    <div class="bg-white rounded-lg p-8 md:p-12 shadow-sm">
-        <div class="literary-text">{{ body_html }}</div>
-    </div>
-
-    <div class="py-8 border-t border-gray-100 mt-10 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="py-6 border-b border-gray-200 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
         {% if previous %}
         <a href="{{ detail_prefix }}{{ previous.id }}/" class="btn btn-secondary text-sm">← {{ previous.title }}</a>
         {% else %}
@@ -41,5 +23,28 @@
         <span></span>
         {% endif %}
     </div>
+
+    <div class="work-header flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-6 mb-4">
+        <span class="text-xs text-gray-400 uppercase tracking-wider leading-none">{{ section_name }}</span>
+        <h1 class="font-merriweather text-xl md:text-2xl font-bold text-gray-900 leading-none mb-0">{{ work.title }}</h1>
+        <div class="flex items-center gap-2 text-sm text-gray-500 whitespace-nowrap">
+            <span>Автор: {{ work.author }}</span>
+            {% if work.date %}<span class="text-gray-400">·</span><span>{{ work.date }}</span>{% endif %}
+        </div>
+<button onclick="copyWorkUrl('{{ request.url }}', this)" class="text-xs bg-gray-100 text-gray-600 hover:bg-gray-200 rounded px-2 py-0.5 transition-colors whitespace-nowrap" title="Копировать ссылку">🔗 Поделиться</button>
+    </div>
+
+    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm">
+        <div class="literary-text">{{ body_html }}</div>
+    </div>
+
+    {% if work.tags %}
+    <div class="mt-6 flex justify-center flex-wrap gap-2">
+        {% for tag in work.tags %}
+        <span class="text-xs bg-gray-100 text-gray-600 rounded-full px-3 py-1">{{ tag }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </div>
 {% endblock %}

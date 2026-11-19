@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "снег засыпал",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -79,7 +79,8 @@
               "title": "Закладки"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -188,8 +189,19 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "0ef61474aa5abe08",
+  "active": "76bb13a60b704a16",
   "lastOpenFiles": [
+    "static/images/content/SOimage84.jpg",
+    "static/images/content/SOimage83.jpg",
+    "static/images/content/SOimage82.jpg",
+    "static/images/content/SOimage81.jpg",
+    "static/images/content/SOimage80.jpg",
+    "static/images/content/SOimage79.jpg",
+    "static/images/content/SOimage84.png",
+    "static/images/content/SOimage83.png",
+    "static/images/content/SOimage82.png",
+    "static/images/content/SOimage81.png",
+    "static/images/content/SOimage80.png",
     "поэзия/C Магниткой В Сердце.md",
     "поэзия/Язвит. Стихи.md",
     "поэзия/Юбилейные Страдания.md",
@@ -209,16 +221,6 @@
     "поэзия/Имя Твое.md",
     "поэзия/Ко Дню Рождения.md",
     "Clippings/Стоковые изображения 3Д Ландшафт Фантастика Изображения просматривайте стоковые фотографии, векторные изображения и видео в количестве 4.md",
-    "static/images/content/SOimage78.jpg",
-    "static/images/content/SOimage77.jpg",
-    "static/images/content/SOimage76.jpg",
-    "static/images/content/SOimage75.jpg",
-    "static/images/content/SOimage74.jpg",
-    "static/images/content/SOimage73.jpg",
-    "static/images/content/SOimage72.jpg",
-    "static/images/content/SOimage71.jpg",
-    "static/images/content/SOimage70.jpg",
-    "static/images/content/SOimage69.jpg",
     "static/images/content/SOimage62.jfif",
     "__pycache__/add_content_images.cpython-314.pyc",
     "__pycache__",
@@ -231,7 +233,6 @@
     "проза/Выхухоль.md",
     "проза/Вино Хмельное Жизнь.md",
     "проза/В Поисках Макондо.md",
-    "проза/В Плену Дремот.md",
     "static/images/content/images.jfif",
     "static/images/content/Не подтвержден 652850.crdownload",
     "normalize_names.py",

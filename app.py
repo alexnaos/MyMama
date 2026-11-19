@@ -846,8 +846,52 @@ def internal_error(error):
 
 
 if __name__ == '__main__':
-    # Для работы в качестве службы Windows (через SSM/NSSM):
-    # 1. Отключаем debug=True, чтобы не создавались лишние процессы.
-    # 2. Жестко фиксируем порт 5001 (так как 5000 занят первым проектом).
-    # 3. Убираем автооткрытие браузера и автоподбор портов.
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    import sys
+    import os
+    
+    # Режимы запуска:
+    # python app.py                          - обычный HTTP на 5001
+    # python app.py https                    - HTTPS на 5001 (самоподписанный)
+    # python app.py production               - Production-ready (uWSGI/Gunicorn)
+    
+    if len(sys.argv) > 1 and sys.argv[1] == 'https':
+        # Режим с самоподписанным SSL для тестирования
+        print("Запуск в режиме HTTPS (самоподписанный сертификат)...")
+        print("ВАЖНО: Браузер будет предупреждать о небезопасном соединении!")
+        
+        # Создаем временный самоподписанный сертификат, если его нет
+        cert_dir = os.path.join(BASE_DIR, 'ssl')
+        os.makedirs(cert_dir, exist_ok=True)
+        cert_file = os.path.join(cert_dir, 'cert.pem')
+        key_file = os.path.join(cert_dir, 'key.pem')
+        
+        if not os.path.exists(cert_file) or not os.path.exists(key_file):
+            print("Создаю самоподписанный сертификат...")
+            import subprocess
+            try:
+                # Создаем ключ и сертификат
+                subprocess.run([
+                    'openssl', 'req', '-x509', '-newkey', 'rsa:4096',
+                    '-keyout', key_file, '-out', cert_file,
+                    '-days', '365', '-nodes', '-subj', '/CN=localhost'
+                ], check=False)
+                print(f"Сертификат создан: {cert_file}")
+            except Exception as e:
+                print(f"Ошибка создания сертификата: {e}")
+                print("Запускаю без SSL...")
+                app.run(host='0.0.0.0', port=5001, debug=False)
+                sys.exit(0)
+        
+        app.run(host='0.0.0.0', port=5001, debug=False,
+                ssl_context=(cert_file, key_file))
+        
+    elif len(sys.argv) > 1 and sys.argv[1] == 'production':
+        # Production-режим для Nginx + uWSGI
+        print("Запуск в production-режиме (ожидает проксирование от Nginx)...")
+        print("Домен должен быть настроен в Nginx с SSL-терминацией")
+        app.run(host='0.0.0.0', port=5001, debug=False, threaded=True)
+        
+    else:
+        # Стандартный режим (HTTP)
+        print("Запуск в стандартном режиме HTTP...")
+        app.run(host='0.0.0.0', port=5001, debug=False)
